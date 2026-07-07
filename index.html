@@ -1,157 +1,188 @@
 <!doctype html>
+<!--
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣾⠟⠻⣷⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⡟⠻⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣤⣤⣼⡇⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣇⠀⠈⠻⠶⡴⢦⣤⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡋⠁⠀⠈⠀⠀⠀⠻⠷⠶⣦⣀⠀⠀⠀⠀⠀⠀⣠⣼⡿⠆⠀⠀⠀⠀⢀⣹⡧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠙⢶⣶⡄⠀⠀⣀⣀⣀⣤⣼⠟⠀⠀⠀⠀⠀⠘⣿⣡⣀⣄⣠⡀⠀⢺⣽⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⠟⠀⢀⣼⣿⣭⡽⠯⠶⠶⠶⠶⠶⠶⠶⠶⠶⠮⣭⣥⣹⣿⡄⠀⠹⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣾⠋⠀⠀⠈⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠛⠀⠀⢻⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⠟⠉⠀⠀⠀⠀⠀⠀⣠⣤⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⠟⠁⠀⠀⠀⠀⠀⠀⣀⡼⠋⠈⠻⢶⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⣴⡯⠁⠀⠀⠀⠀⠀⣀⣠⠿⠛⣳⢾⣶⡀⠀⠉⠛⠻⠶⠦⡤⢤⠴⠶⣾⡗⠒⠛⠻⢴⣤⡀⠀⠀⠀⠀⠈⢷⣄⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⢀⣾⠏⠀⠀⠀⠀⠀⢠⣴⠟⢁⣴⣾⣿⣿⠺⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢱⣶⣶⣦⡀⠉⠻⣆⡀⠀⠀⠀⠈⢿⣆⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⣠⣾⠏⠀⠀⠀⠀⠀⢀⣿⠃⢀⣿⣿⣿⣿⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢿⣿⣿⣷⡄⠀⢙⡦⠀⠀⠀⠀⠀⢻⡿⢶⣤⡀⠀⠀
+⠀⢀⣠⣰⣿⡿⠀⠀⠀⠀⠀⠀⢾⣟⠀⠈⣿⣿⣿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠿⣿⣿⠇⠀⣨⣷⡀⠀⠀⠀⠀⠸⣷⠈⠛⠷⣦⡀
+⣴⡟⠋⢉⣾⠁⠀⠀⠀⠀⠀⠀⣬⡟⠿⠿⠊⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠶⣶⡾⢿⣵⠀⠀⠀⠀⠀⠀⢹⡇⠀⠀⢸⡇
+⣯⣄⠀⢸⣏⠀⠀⠀⠀⠀⠀⠠⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠶⠶⠶⠶⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⠸⡇⢀⣤⡿⠃
+⠀⠙⠿⣾⣧⠀⠀⠀⠀⠀⠀⠰⣟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⢰⡿⠟⠋⠀⠀
+⠀⠀⠀⢨⣷⠀⠀⠀⠀⠀⠀⠘⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⡇⠀⠀⠀⠀⠀⠀⣽⠃⠀⠀⠀⠀
+⠀⠀⠀⠀⢻⣆⠀⠀⠀⠀⠀⠀⠘⣷⡀⠀⠀⠀⢀⣀⠀⠀⢀⣀⣤⣴⠾⣿⡿⠶⢦⣤⣀⠀⠀⠀⠀⠀⠀⠀⢠⡿⠀⠀⠀⠀⠀⠀⣸⡟⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠈⢽⣦⡀⠀⠀⠀⠀⠀⠘⣷⣄⠀⠀⠈⠛⠷⢾⣟⠛⠉⠀⠀⠸⠇⠀⠀⠈⣹⡿⠲⠶⢶⠟⠀⣴⠟⠁⠀⠀⠀⠀⠀⣰⡿⠁⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠙⢿⣆⠀⢠⣤⣄⡀⢈⡏⠓⢤⣄⠀⠀⠀⠙⣷⣄⣀⠀⠀⢀⣀⣤⣾⠟⠁⠀⠀⣀⣤⡼⠁⠀⠀⠀⠀⠀⠀⣼⠟⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⢠⣿⠛⠛⠀⠈⠉⠉⠁⠀⢈⣹⡿⠷⣦⣤⣀⣉⡛⠛⠛⢛⣛⣉⣠⣤⣶⢾⣿⡋⣸⡇⢀⣤⣤⡀⠀⣠⠾⣗⡀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⢴⣿⣧⡄⠀⠀⠀⠀⠀⠀⣠⣾⡋⢦⣵⠁⠈⠻⢿⣛⣀⣀⣙⣻⡟⠁⠀⢳⢎⡜⣷⡛⠞⠛⠁⠈⠛⠛⠁⠀⠹⣦⡀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠈⣿⠁⠀⠀⠀⠀⠀⠀⢿⣿⣿⣿⠂⠀⠀⠀⠈⠙⠛⠛⠛⠉⠀⠀⠀⠀⢻⣾⣿⡿⠀⠀⠀⠀⠀⠀⠀⣸⡷⠿⠟⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠻⣧⡀⠀⠀⣀⣄⠀⠀⠉⠉⢻⣇⡀⣀⢀⡀⠀⠀⠀⣀⣀⣀⡀⣀⣠⣿⠋⠉⠁⢀⣤⣆⡀⠀⣠⣴⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠛⣦⣴⡿⠛⠿⢶⣤⣤⣨⣷⣶⣠⣇⣮⣝⣺⣱⣡⣲⣬⣴⣢⣼⣧⡴⡲⠟⠛⠉⠙⠷⠟⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠀⠀⠀⠀⠀⠈⠁⠉⠛⠿⣿⠟⠉⠉⠉⠉⠛⠿⣿⡟⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+-->
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>Flipnote Dot Converter</title>
   <style>
+    @font-face {
+      font-family: 'FlipnoteTitle';
+      src: url('https://raw.githubusercontent.com/famikomputa/flipnote-converter/main/fonts/title.otf') format('opentype');
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'FlipnoteText';
+      src: url('https://raw.githubusercontent.com/famikomputa/flipnote-converter/main/fonts/textjpch.ttf') format('truetype');
+      font-display: swap;
+    }
     :root {
-      --bg:#0e0e12; --panel:#15151c; --panel2:#1c1c26; --border:#2a2a38;
-      --text:#f0ede8; --muted:#7a7a90; --red:#fe1010; --yellow:#ffe700;
-      --green:#008431; --blue:#0039ce; --white:#fffffd;
+      --bg:#ff6300; --panel:#fdfdfd; --panel2:#fff1e6; --border:#ffc299;
+      --text:#2d3a4a; --muted:#6d84a0; --red:#ff6300; --yellow:#ffe700;
+      --green:#ff6300; --blue:#a83e00; --white:#fffffd; --accent:#ff6300;
     }
     *{box-sizing:border-box;}
-    body{margin:0;font-family:system-ui,-apple-system,sans-serif;font-size:14px;background:var(--bg);color:var(--text);min-height:100vh;}
+    body{
+      margin:0;font-family:'FlipnoteText','Trebuchet MS','Segoe UI',Tahoma,sans-serif;font-size:18px;
+      background:var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='%23ff6300'/%3E%3Cpath d='M0 4L4 0' stroke='%23e05800' stroke-width='1'/%3E%3C/svg%3E");
+      color:var(--text);min-height:100vh;
+    }
 
-    .app-header{background:var(--panel);border-bottom:2px solid var(--border);padding:10px 16px;display:flex;align-items:center;gap:12px;}
-    .header-logo h1{margin:0;font-size:16px;font-weight:800;line-height:1.2;}
-    .header-logo h1 span{color:var(--red);}
-    .header-logo p{margin:2px 0 0;font-size:11px;color:var(--muted);}
+    
+    .app-header{
+      background:linear-gradient(to bottom,#ff9a4d 0%,#ff7a26 45%,#ff6300 46%,#ff7a26 100%);
+      border-bottom:3px solid #a83e00;
+      box-shadow:0 2px 6px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.3);
+      padding:10px 16px;display:flex;align-items:center;gap:12px;
+      font-family:'FlipnoteTitle','Trebuchet MS',sans-serif;
+    }
+    .header-logo{display:flex;align-items:center;}
+    .header-logo img{height:38px;filter:drop-shadow(0 2px 2px rgba(0,0,0,0.5));display:block;}
+    .header-logo h1{margin:0;font-size:21px;font-weight:800;line-height:1.2;color:#eaf3ff;text-shadow:0 1px 1px rgba(0,0,0,0.6);font-family:'FlipnoteTitle','Trebuchet MS',sans-serif;}
+    .header-logo h1 span{color:#ffe36e;}
+    .header-logo p{margin:2px 0 0;font-size:17px;color:#ffe6d1;text-shadow:0 1px 1px rgba(0,0,0,0.5);}
     .pal-dots{display:flex;gap:4px;margin-left:8px;align-items:center;flex-wrap:wrap;max-width:300px;}
-    .pal-dot{width:14px;height:14px;border-radius:3px;border:1px solid rgba(255,255,255,.15);}
+    .pal-dot{width:14px;height:14px;border-radius:3px;border:1px solid rgba(255,255,255,.4);box-shadow:0 1px 2px rgba(0,0,0,.3);}
 
-    .tab-nav{display:flex;gap:4px;padding:8px 16px 0;background:var(--panel);border-bottom:1px solid var(--border);}
-    .tab-btn{background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);padding:6px 14px;cursor:pointer;font-size:13px;font-weight:600;margin-bottom:-1px;transition:color .15s,border-color .15s;}
-    .tab-btn:hover{color:var(--text);}
-    .tab-btn.active{color:var(--text);border-bottom-color:var(--red);}
+    .tab-nav{display:flex;gap:4px;padding:8px 16px 0;background:linear-gradient(to bottom,#fff1e6 0%,#ffd9b8 100%);border-bottom:1px solid var(--border);}
+    .tab-btn{background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);padding:6px 14px;cursor:pointer;font-size:18px;font-weight:700;margin-bottom:-1px;transition:color .15s,border-color .15s;text-shadow:0 1px 0 #fff;}
+    .tab-btn:hover{color:var(--blue);}
+    .tab-btn.active{color:var(--blue);border-bottom-color:var(--green);}
     .tab-panel{display:none;} .tab-panel.active{display:block;}
 
     .layout{display:grid;grid-template-columns:1.3fr 1fr;gap:12px;padding:12px;max-width:1280px;margin:0 auto;}
-    .card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:12px;}
+    .card{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:12px;box-shadow:0 3px 8px rgba(0,0,0,0.2), inset 0 1px 0 #fff;}
 
-    .drop-zone{border:2px dashed var(--border);border-radius:8px;padding:20px;text-align:center;cursor:pointer;margin-bottom:10px;transition:border-color .15s,background .15s;}
-    .drop-zone:hover,.drop-zone.drag-over{border-color:var(--red);background:rgba(254,16,16,.05);}
+    .drop-zone{border:2px dashed var(--border);border-radius:8px;padding:20px;text-align:center;cursor:pointer;margin-bottom:10px;transition:border-color .15s,background .15s;background:repeating-linear-gradient(45deg,#f4f9ff,#f4f9ff 12px,#eaf3fc 12px,#eaf3fc 24px);}
+    .drop-zone:hover,.drop-zone.drag-over{border-color:var(--green);background:rgba(74,156,42,.08);}
     .drop-zone p{margin:0 0 4px;} .drop-zone small{color:var(--muted);}
 
     .toolbar{display:flex;align-items:center;gap:6px;margin-bottom:8px;}
-    .toolbar button{background:var(--panel2);border:1px solid var(--border);color:var(--muted);border-radius:6px;padding:4px 10px;cursor:pointer;font-size:12px;font-weight:600;}
-    .toolbar button.active{background:var(--red);border-color:var(--red);color:white;}
-    .toolbar button:hover{filter:brightness(1.1);}
-    #statusText{margin-left:auto;font-size:11px;color:var(--muted);}
+    .toolbar button{background:linear-gradient(to bottom,#fff,#eef5ff);border:1px solid var(--border);color:var(--muted);border-radius:6px;padding:4px 10px;cursor:pointer;font-size:18px;font-weight:600;box-shadow:inset 0 1px 0 #fff;}
+    .toolbar button.active{background:linear-gradient(to bottom,#ff9a4d,#ff6300);border-color:#a84200;color:white;text-shadow:0 1px 1px rgba(0,0,0,.4);}
+    .toolbar button:hover{filter:brightness(1.05);}
+    #statusText{margin-left:auto;font-size:17px;color:var(--muted);}
 
     #previewCanvas{width:100%;border:1px solid var(--border);border-radius:6px;background:#000;image-rendering:pixelated;display:block;}
 
-    .controls-panel h2{margin:0 0 12px;font-size:15px;}
+    .controls-panel h2{margin:0 0 12px;font-size:19px;}
     details{margin-bottom:8px;border:1px solid var(--border);border-radius:6px;overflow:hidden;}
-    summary{cursor:pointer;font-weight:700;font-size:12px;padding:7px 10px;background:var(--panel2);user-select:none;list-style:none;display:flex;align-items:center;gap:6px;}
+    summary{cursor:pointer;font-weight:700;font-size:18px;padding:7px 10px;background:var(--panel2);user-select:none;list-style:none;display:flex;align-items:center;gap:6px;}
     summary::-webkit-details-marker{display:none;}
-    summary::before{content:'▸';font-size:10px;color:var(--muted);transition:transform .2s;}
+    summary::before{content:'▸';font-size:16px;color:var(--muted);transition:transform .2s;}
     details[open] summary::before{transform:rotate(90deg);}
 
     .control-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;padding:10px;}
-    label{display:flex;flex-direction:column;gap:3px;font-size:12px;color:var(--muted);}
+    label{display:flex;flex-direction:column;gap:3px;font-size:18px;color:var(--muted);}
     label span{color:var(--text);}
     input[type=range]{width:100%;accent-color:var(--red);cursor:pointer;}
-    select,input[type=number]{width:100%;background:var(--panel2);border:1px solid var(--border);color:var(--text);padding:5px 7px;border-radius:5px;font-size:12px;}
+    select,input[type=number]{width:100%;background:var(--panel2);border:1px solid var(--border);color:var(--text);padding:5px 7px;border-radius:5px;font-size:18px;}
     select:focus,input:focus{outline:1px solid var(--red);}
     .button-row{display:flex;flex-wrap:wrap;gap:6px;padding:10px;}
-    .btn{background:var(--panel2);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:6px 12px;cursor:pointer;font-size:12px;font-weight:600;transition:filter .15s,border-color .15s;}
-    .btn:hover{filter:brightness(1.15);border-color:var(--red);}
+    .btn{background:linear-gradient(to bottom,#fff,#eef5ff);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:6px 12px;cursor:pointer;font-size:18px;font-weight:700;transition:filter .15s,border-color .15s;box-shadow:inset 0 1px 0 #fff, 0 1px 2px rgba(0,0,0,.15);}
+    .btn:hover{filter:brightness(1.05);border-color:var(--green);}
     .btn:disabled{opacity:.35;cursor:not-allowed;}
-    .btn.primary{background:var(--red);border-color:var(--red);color:white;}
+    .btn.primary{background:linear-gradient(to bottom,#ff9a4d 0%,#ff6300 50%,#e05800 51%,#ff7a26 100%);border:1px solid #a84200;color:white;text-shadow:0 1px 1px rgba(0,0,0,.4);box-shadow:inset 0 1px 0 rgba(255,255,255,.5), 0 2px 4px rgba(0,0,0,.3);}
 
-    /* Palette section */
+    
     .pal-section{padding:10px;display:flex;flex-direction:column;gap:8px;}
     .pal-group{display:flex;flex-direction:column;gap:4px;}
-    .pal-group-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;}
+    .pal-group-label{font-size:16px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;}
     .pal-row{display:flex;gap:5px;align-items:center;flex-wrap:wrap;}
     .pal-swatch{width:24px;height:24px;border-radius:4px;border:2px solid #333;cursor:pointer;transition:transform .1s,border-color .1s;position:relative;flex-shrink:0;}
     .pal-swatch:hover{transform:scale(1.2);}
     .pal-swatch.active{border-color:white;box-shadow:0 0 0 1px rgba(255,255,255,.3);}
     .pal-swatch.always-on{cursor:default;}
-    .pal-swatch[data-locked]::after{content:'🔒';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:8px;}
-    .swatch-label{font-size:9px;color:var(--muted);text-align:center;margin-top:1px;}
+    .pal-swatch[data-locked]::after{content:'🔒';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:14px;}
+    .swatch-label{font-size:15px;color:var(--muted);text-align:center;margin-top:1px;}
 
-    /* Pattern section */
+    
     .pattern-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(56px,1fr));gap:6px;padding:10px;}
     .pattern-chip{border:2px solid var(--border);border-radius:6px;padding:4px;cursor:pointer;transition:border-color .15s;background:var(--panel2);display:flex;flex-direction:column;align-items:center;gap:3px;}
     .pattern-chip:hover{border-color:var(--muted);}
     .pattern-chip.active{border-color:var(--yellow);}
     .pattern-chip canvas{width:32px;height:32px;image-rendering:pixelated;border-radius:2px;}
-    .pattern-chip small{font-size:9px;color:var(--muted);text-align:center;line-height:1.2;}
+    .pattern-chip small{font-size:15px;color:var(--muted);text-align:center;line-height:1.2;}
 
-    /* Per-color pattern rows */
+    
     .color-pat-row{background:var(--panel2);border:1px solid var(--border);border-radius:6px;padding:8px 10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
     .color-pat-swatch{width:32px;height:32px;border-radius:4px;border:2px solid #444;flex-shrink:0;}
     .color-pat-swatch[data-id="white"]{border-color:#666;}
-    .color-pat-label{font-size:11px;color:var(--text);min-width:60px;flex-shrink:0;}
-    .color-pat-select{flex:1;min-width:120px;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:4px 6px;border-radius:4px;font-size:11px;}
-    .color-pat-alt-label{font-size:10px;color:var(--muted);white-space:nowrap;}
-    .color-pat-alt-select{background:var(--bg);border:1px solid var(--border);color:var(--text);padding:3px 5px;border-radius:4px;font-size:11px;min-width:80px;}
+    .color-pat-label{font-size:17px;color:var(--text);min-width:60px;flex-shrink:0;}
+    .color-pat-select{flex:1;min-width:120px;background:var(--panel2);border:1px solid var(--border);color:var(--text);padding:4px 6px;border-radius:4px;font-size:17px;}
+    .color-pat-alt-label{font-size:16px;color:var(--muted);white-space:nowrap;}
+    .color-pat-alt-select{background:var(--panel2);border:1px solid var(--border);color:var(--text);padding:3px 5px;border-radius:4px;font-size:17px;min-width:80px;}
 
-    /* Validate */
-    .preview-stack{position:relative;}
-    #validateOverlayCanvas{position:absolute;inset:0;width:100%;background:transparent;pointer-events:none;image-rendering:pixelated;}
-    #validatePreviewCanvas{width:100%;border:1px solid var(--border);border-radius:6px;image-rendering:pixelated;background:#000;display:block;}
-    .result-card{margin-top:10px;background:var(--panel2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;font-size:13px;line-height:1.8;}
-    .result-card h3{margin:0 0 6px;font-size:13px;}
-    .ok{color:#4caf50;font-weight:700;} .ng{color:var(--red);font-weight:700;}
-    .tile-grid{margin-top:10px;display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:6px;max-height:300px;overflow-y:auto;}
-    .tile-item{border:1px solid var(--border);border-radius:6px;padding:4px;text-align:center;cursor:pointer;background:var(--panel2);}
-    .tile-item:hover{border-color:var(--muted);} .tile-item.active{border-color:var(--yellow);}
-    .tile-item canvas{width:48px;height:48px;image-rendering:pixelated;display:block;margin:0 auto;}
-    .tile-item small{display:block;margin-top:2px;font-size:10px;color:var(--muted);}
-
-    .note{font-size:11px;color:var(--muted);line-height:1.5;padding:0 10px 8px;}
-    .beta-tag{font-size:9px;background:var(--yellow);color:#000;border-radius:3px;padding:1px 4px;margin-left:4px;vertical-align:middle;font-weight:700;}
+    .note{font-size:17px;color:var(--muted);line-height:1.5;padding:0 10px 8px;}
+    .beta-tag{font-size:15px;background:var(--yellow);color:#000;border-radius:3px;padding:1px 4px;margin-left:4px;vertical-align:middle;font-weight:700;}
 
     @media(max-width:860px){.layout{grid-template-columns:1fr;}}
 
-    /* Language switcher */
+    
     .lang-switcher{margin-left:auto;display:flex;align-items:center;gap:6px;flex-shrink:0;}
-    .lang-switcher select{background:var(--panel2);border:1px solid var(--border);color:var(--text);padding:4px 8px;border-radius:6px;font-size:12px;cursor:pointer;}
+    .lang-switcher select{background:var(--panel2);border:1px solid var(--border);color:var(--text);padding:4px 8px;border-radius:6px;font-size:18px;cursor:pointer;}
     .lang-switcher select:focus{outline:1px solid var(--red);}
 
-    /* Palette mode strip */
-    .pal-mode-strip{display:flex;gap:6px;padding:4px 0 10px;}
-    .pal-mode-btn{flex:1;background:transparent;border:1.5px solid var(--border);color:var(--muted);border-radius:8px;padding:7px 6px;cursor:pointer;font-size:12px;font-weight:700;letter-spacing:.02em;transition:all .15s;}
-    .pal-mode-btn:hover{color:var(--text);border-color:#555;}
-    .pal-mode-btn.active{background:rgba(255,255,255,.05);border-color:#888;color:var(--text);}
-    .pal-mode-btn.karisu-btn.active{border-color:#a060f0;color:#c080ff;background:rgba(160,96,240,.12);}
-
-    /* Karisu grid — 9 columns to mirror the original marble layout */
-    .karisu-grid{display:grid;grid-template-columns:repeat(9,1fr);gap:4px;padding:6px 0;}
-    .karisu-swatch{width:100%;aspect-ratio:1/1;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:opacity .12s,transform .12s,border-color .12s;}
-    .karisu-swatch:not(.active){opacity:.25;transform:scale(.85);}
-    .karisu-swatch.active{border-color:rgba(255,255,255,.35);}
-    .karisu-swatch:hover{opacity:1 !important;transform:scale(1.1) !important;}
   </style>
 </head>
 <body>
 
 <header class="app-header">
   <div class="header-logo">
-    <h1>Flipnote <span>Dot</span> Converter</h1>
-    <p data-i18n="header.subtitle">Convert photos &amp; illustrations into Flipnote Studio style</p>
+    <img src="https://github.com/famikomputa/flipnote-converter/blob/main/images/invishorlgoo.png?raw=true" alt="Flipnote Dot Converter" style="margin-right:10px;">
+    <div>
+      <h1>Flipnote <span>Dot</span> Converter</h1>
+      <p data-i18n="header.subtitle">Convert photos &amp; illustrations into Flipnote Studio style</p>
+    </div>
   </div>
   <div class="pal-dots" id="headerPalDots"></div>
   <div class="lang-switcher">
     <select id="langSelect" title="Language">
       <option value="en">🇺🇸 English</option>
+      <option value="ru">🇷🇺 Русский</option>
       <option value="ja">🇯🇵 日本語</option>
       <option value="pt">🇧🇷 Português</option>
       <option value="es">🇪🇸 Español</option>
-      <option value="zh">🇨🇳 中文</option>
+      <option value="zh">🇨🇳 中文（简体）</option>
+      <option value="zhtw">🇹🇼 中文（繁體）</option>
+      <option value="fr">🇫🇷 Français</option>
+      <option value="de">🇩🇪 Deutsch</option>
+      <option value="vi">🇻🇳 Tiếng Việt</option>
     </select>
   </div>
 </header>
 
 <nav class="tab-nav">
   <button id="tabConvertBtn" class="tab-btn active" data-i18n="tab.convert">Convert</button>
-  <button id="tabValidateBtn" class="tab-btn" data-i18n="tab.validate">PNG Validation</button>
 </nav>
 
-<!-- CONVERT TAB -->
 <section id="convertTab" class="tab-panel active">
  <main class="layout">
   <section class="card">
@@ -171,28 +202,20 @@
   <section class="card controls-panel">
     <h2 data-i18n="settings.title">Settings</h2>
 
-    <!-- PALETTE -->
     <details open>
       <summary data-i18n="palette.title">Palette</summary>
       <div class="pal-section">
 
-        <!-- Mode strip -->
-        <div class="pal-mode-strip">
-          <button id="palModeFlipnote" class="pal-mode-btn active">🎨 Flipnote</button>
-          <button id="palModeKarisu"   class="pal-mode-btn karisu-btn">✨ Karisu Palette</button>
-        </div>
-
-        <!-- ── Flipnote controls (hidden in Karisu mode) ── -->
         <div id="flipnotePalControls">
           <label style="flex-direction:row;align-items:center;gap:8px;color:var(--text)">
-            <span style="min-width:55px;color:var(--muted);font-size:12px" data-i18n="palette.version">Version</span>
+            <span style="min-width:55px;color:var(--muted);font-size:18px" data-i18n="palette.version">Version</span>
             <select id="palVersion" style="flex:1">
               <option value="dsi" data-i18n="palette.dsi">Flipnote Studio (DSi) — 4 colors</option>
               <option value="3ds" data-i18n="palette.3ds">Flipnote Studio 3D (3DS) — 6 colors</option>
             </select>
           </label>
           <label style="flex-direction:row;align-items:center;gap:8px;color:var(--text)">
-            <span style="min-width:55px;color:var(--muted);font-size:12px" data-i18n="palette.paper">Paper</span>
+            <span style="min-width:55px;color:var(--muted);font-size:18px" data-i18n="palette.paper">Paper</span>
             <select id="palPaper" style="flex:1">
               <option value="white" data-i18n="palette.whitePaper">White paper</option>
               <option value="black" data-i18n="palette.blackPaper">Black paper</option>
@@ -210,21 +233,13 @@
           <div class="note" data-i18n="palette.alwaysNote">Black &amp; white are always active. Colors from the real Flipnote ASE file.</div>
         </div>
 
-        <!-- ── Karisu controls (hidden in Flipnote mode) ── -->
-        <div id="karisuPalControls" style="display:none">
-          <div class="note">81 marble colors — click any to toggle off.</div>
-          <div id="palTogglesKarisu" class="karisu-grid"></div>
-        </div>
-
       </div>
     </details>
 
-    <!-- PATTERNS -->
     <details open>
       <summary><span data-i18n="patterns.title">Flipnote Patterns</span> <span class="beta-tag">NEW</span></summary>
       <div class="note" data-i18n="patterns.note">Assign a unique pattern to each palette color independently. Colors with no pattern assigned stay solid.</div>
 
-      <!-- Global controls -->
       <div class="control-grid" style="padding:8px 10px 4px;">
         <label><span><span data-i18n="patterns.intensity">Intensity</span> <span id="patIntensityValue">100</span>%</span>
           <input id="patIntensity" type="range" min="10" max="100" value="100"/>
@@ -234,11 +249,9 @@
         </label>
       </div>
 
-      <!-- Per-color rows — filled by buildColorPatternRows() -->
       <div id="colorPatternRows" style="display:flex;flex-direction:column;gap:1px;"></div>
     </details>
 
-    <!-- CROP / RESIZE -->
     <details open>
       <summary data-i18n="crop.title">Crop / Resize</summary>
       <div class="control-grid">
@@ -283,7 +296,6 @@
       </div>
     </details>
 
-    <!-- PHOTO CORRECTION -->
     <details open>
       <summary data-i18n="photo.title">Photo Pre-Correction</summary>
       <div class="control-grid">
@@ -302,7 +314,6 @@
       </div>
     </details>
 
-    <!-- DITHER -->
     <details open>
       <summary data-i18n="dither.title">Quantize / Dither</summary>
       <div class="control-grid">
@@ -320,7 +331,6 @@
       </div>
     </details>
 
-    <!-- OUTPUT -->
     <details open>
       <summary data-i18n="output.title">PNG Output</summary>
       <div class="control-grid">
@@ -343,53 +353,12 @@
  </main>
 </section>
 
-<!-- VALIDATE TAB -->
-<section id="validateTab" class="tab-panel">
- <main class="layout">
-  <section class="card">
-    <h2 style="margin:0 0 12px;font-size:15px" data-i18n="validate.title">PNG Validation</h2>
-    <div id="validateDropZone" class="drop-zone" role="button" tabindex="0">
-      <input id="validateFileInput" type="file" accept="image/png,image/*" hidden/>
-      <p><strong data-i18n="validate.drop">Drag &amp; drop final exported PNG</strong> <span data-i18n="drop.or">or click to choose</span></p>
-      <small data-i18n="validate.dropHint">Check color count and tile uniqueness</small>
-    </div>
-    <div class="control-grid" style="padding:0 0 10px">
-      <label><span data-i18n="validate.tileLimit">Tile limit</span><input id="tileLimit" type="number" min="1" max="4096" value="192"/></label>
-      <label><span data-i18n="validate.multipleHandling">Multiples-of-8 handling</span>
-        <select id="multipleHandling">
-          <option value="pad" data-i18n="validate.pad">Pad</option>
-          <option value="crop" data-i18n="validate.crop">Crop</option>
-        </select>
-      </label>
-      <label><span data-i18n="validate.transparencyHandling">Transparent pixel handling</span>
-        <select id="transparencyHandling">
-          <option value="replace" data-i18n="validate.replaceTransparent">Replace with background</option>
-          <option value="color0" data-i18n="validate.color0">Treat as color0</option>
-        </select>
-      </label>
-    </div>
-    <div id="validateSummary" class="result-card"><h3 data-i18n="validate.resultSummary">Result Summary</h3><p data-i18n="validate.notAnalyzed">Not analyzed</p></div>
-    <div class="button-row" style="padding:10px 0 0">
-      <button id="downloadTilesetBtn" class="btn" data-i18n="validate.downloadTileset">Download Tileset PNG</button>
-      <button id="downloadReportBtn" class="btn" data-i18n="validate.downloadReport">Download Report JSON</button>
-    </div>
-  </section>
-  <section class="card">
-    <h3 style="margin:0 0 10px;font-size:13px" data-i18n="validate.previewOverlay">Preview / Overlay</h3>
-    <div class="preview-stack">
-      <canvas id="validatePreviewCanvas" width="320" height="288"></canvas>
-      <canvas id="validateOverlayCanvas" width="320" height="288"></canvas>
-    </div>
-    <h3 style="margin:12px 0 0;font-size:13px" data-i18n="validate.tileList">Unique Tile List</h3>
-    <div id="tileList" class="tile-grid"></div>
-  </section>
- </main>
-</section>
+<footer style="text-align:center;padding:18px 16px 22px;color:#fff0e2;font-size:16px;text-shadow:0 1px 1px rgba(0,0,0,.4);">
+  Created by <strong style="color:#fff;">famikomputa</strong> on Twitter! 
+</footer>
 
 <script>
-// ═══════════════════════════════════════════════════════════════
-// PALETTE DATA  (colors from real flipnote.ase / flipnote.png)
-// ═══════════════════════════════════════════════════════════════
+
 const OFFICIAL_COLORS = {
   dsi: [
     { id:'black',  hex:'#000000', rgb:[0,   0,   0  ], label:'Black',  always:true  },
@@ -407,8 +376,6 @@ const OFFICIAL_COLORS = {
   ],
 };
 
-// Extra colors achievable by dithering two Flipnote colors together
-// These are community-discovered mixes (like BurntPasta's tutorial describes)
 const EXTRA_COLORS = [
   { id:'purple',    hex:'#7f08ff', rgb:[127, 8,   111], label:'Purple',     note:'Red+Blue dither'   },
   { id:'orange',    hex:'#ff6800', rgb:[255, 104, 0  ], label:'Orange',     note:'Red+Yellow dither' },
@@ -422,114 +389,11 @@ const EXTRA_COLORS = [
   { id:'darkgreen', hex:'#004420', rgb:[0,   68,  32 ], label:'Dk. Green',  note:'Green+Black dither'},
 ];
 
-// ═══════════════════════════════════════════════════════════════
-// KARISU PALETTE  (81 marble colors extracted from the Karisu sheet)
-// ═══════════════════════════════════════════════════════════════
-const KARISU_COLORS = [
-  // Row 0 — reds / oranges / yellows
-  { id:'k_rose',        hex:'#ee4354', rgb:[238, 67,  84 ], label:'Rose'         },
-  { id:'k_red',         hex:'#fd0008', rgb:[253, 0,   8  ], label:'Red'          },
-  { id:'k_crimson',     hex:'#bb0007', rgb:[187, 0,   7  ], label:'Crimson'      },
-  { id:'k_peach',       hex:'#fea252', rgb:[254, 162, 82 ], label:'Peach'        },
-  { id:'k_orange',      hex:'#fd6e02', rgb:[253, 110, 2  ], label:'Orange'       },
-  { id:'k_burnt',       hex:'#c25a01', rgb:[194, 90,  1  ], label:'Burnt Orange' },
-  { id:'k_cream',       hex:'#fef752', rgb:[254, 247, 82 ], label:'Cream'        },
-  { id:'k_yellow',      hex:'#fdf502', rgb:[253, 245, 2  ], label:'Yellow'       },
-  { id:'k_gold',        hex:'#b6b000', rgb:[182, 176, 0  ], label:'Gold'         },
-  // Row 1 — greens / cyans / blues
-  { id:'k_mint',        hex:'#5cea95', rgb:[92,  234, 149], label:'Mint'         },
-  { id:'k_green',       hex:'#1a923b', rgb:[26,  146, 59 ], label:'Green'        },
-  { id:'k_forest',      hex:'#167530', rgb:[22,  117, 48 ], label:'Forest'       },
-  { id:'k_aqua',        hex:'#00f2fd', rgb:[0,   242, 253], label:'Aqua'         },
-  { id:'k_cyan',        hex:'#00cce1', rgb:[0,   204, 225], label:'Cyan'         },
-  { id:'k_teal',        hex:'#0090a8', rgb:[0,   144, 168], label:'Teal'         },
-  { id:'k_lavender',    hex:'#8586fd', rgb:[133, 134, 253], label:'Lavender'     },
-  { id:'k_blue',        hex:'#0100c5', rgb:[1,   0,   197], label:'Blue'         },
-  { id:'k_navy',        hex:'#010084', rgb:[1,   0,   132], label:'Navy'         },
-  // Row 2 — purples / pinks / skin tones
-  { id:'k_lilac',       hex:'#c567da', rgb:[197, 103, 218], label:'Lilac'        },
-  { id:'k_violet',      hex:'#a000f6', rgb:[160, 0,   246], label:'Violet'       },
-  { id:'k_purple',      hex:'#7400b1', rgb:[116, 0,   177], label:'Purple'       },
-  { id:'k_bubblegum',   hex:'#fe7ae3', rgb:[254, 122, 227], label:'Bubblegum'    },
-  { id:'k_magenta',     hex:'#fe00c8', rgb:[254, 0,   200], label:'Magenta'      },
-  { id:'k_plum',        hex:'#a50081', rgb:[165, 0,   129], label:'Plum'         },
-  { id:'k_ivory',       hex:'#ffe4cf', rgb:[255, 228, 207], label:'Ivory'        },
-  { id:'k_skin',        hex:'#ffcb9f', rgb:[255, 203, 159], label:'Skin'         },
-  { id:'k_tan',         hex:'#d29a6b', rgb:[210, 154, 107], label:'Tan'          },
-  // Row 3 — browns / grays / whites
-  { id:'k_salmon',      hex:'#d17855', rgb:[209, 120, 85 ], label:'Salmon'       },
-  { id:'k_brown',       hex:'#b35027', rgb:[179, 80,  39 ], label:'Brown'        },
-  { id:'k_chocolate',   hex:'#883311', rgb:[136, 51,  17 ], label:'Chocolate'    },
-  { id:'k_ltgray',      hex:'#c2c2c2', rgb:[194, 194, 194], label:'Lt. Gray'     },
-  { id:'k_gray',        hex:'#838484', rgb:[131, 132, 132], label:'Gray'         },
-  { id:'k_dkgray',      hex:'#575758', rgb:[87,  87,  88 ], label:'Dk. Gray'     },
-  { id:'k_white',       hex:'#fefefe', rgb:[254, 254, 254], label:'White'        },
-  { id:'k_offwhite',    hex:'#e8e9e8', rgb:[232, 233, 232], label:'Off-White'    },
-  { id:'k_silver',      hex:'#c2c2c1', rgb:[194, 194, 193], label:'Silver'       },
-  // Row 4 — pastels / mauve / khakis
-  { id:'k_honeydew',    hex:'#c3efa9', rgb:[195, 239, 169], label:'Honeydew'     },
-  { id:'k_sage',        hex:'#7dd56a', rgb:[125, 213, 106], label:'Sage'         },
-  { id:'k_chartreuse',  hex:'#61b019', rgb:[97,  176, 25 ], label:'Chartreuse'   },
-  { id:'k_dustyrose',   hex:'#c89591', rgb:[200, 149, 145], label:'Dusty Rose'   },
-  { id:'k_mauve',       hex:'#aa5d58', rgb:[170, 93,  88 ], label:'Mauve'        },
-  { id:'k_burgundy',    hex:'#62332f', rgb:[98,  51,  47 ], label:'Burgundy'     },
-  { id:'k_sand',        hex:'#cc8a3e', rgb:[204, 138, 62 ], label:'Sand'         },
-  { id:'k_khaki',       hex:'#ab803e', rgb:[171, 128, 62 ], label:'Khaki'        },
-  { id:'k_umber',       hex:'#7c632d', rgb:[124, 99,  45 ], label:'Umber'        },
-  // Row 5 — muted greens / teals / slate blues
-  { id:'k_seafoam',     hex:'#548781', rgb:[84,  135, 129], label:'Seafoam'      },
-  { id:'k_olive',       hex:'#5d944b', rgb:[93,  148, 75 ], label:'Olive'        },
-  { id:'k_hunter',      hex:'#305831', rgb:[48,  88,  49 ], label:'Hunter'       },
-  { id:'k_steelteal',   hex:'#50a2ab', rgb:[80,  162, 171], label:'Steel Teal'   },
-  { id:'k_petrol',      hex:'#23717e', rgb:[35,  113, 126], label:'Petrol'       },
-  { id:'k_darkteal',    hex:'#0e473d', rgb:[14,  71,  61 ], label:'Dk. Teal'     },
-  { id:'k_slate',       hex:'#6a779d', rgb:[106, 119, 157], label:'Slate'        },
-  { id:'k_cobalt',      hex:'#304d7b', rgb:[48,  77,  123], label:'Cobalt'       },
-  { id:'k_midnight',    hex:'#153561', rgb:[21,  53,  97 ], label:'Midnight'     },
-  // Row 6 — muted purples / dusty pinks / light blues
-  { id:'k_orchid',      hex:'#a66497', rgb:[166, 100, 151], label:'Orchid'       },
-  { id:'k_wine',        hex:'#641f4f', rgb:[100, 31,  79 ], label:'Wine'         },
-  { id:'k_eggplant',    hex:'#3c132f', rgb:[60,  19,  47 ], label:'Eggplant'     },
-  { id:'k_blush',       hex:'#9a7384', rgb:[154, 115, 132], label:'Blush'        },
-  { id:'k_dustypink',   hex:'#895477', rgb:[137, 84,  119], label:'Dusty Pink'   },
-  { id:'k_mulberry',    hex:'#643b57', rgb:[100, 59,  87 ], label:'Mulberry'     },
-  { id:'k_iceblue',     hex:'#c8fffe', rgb:[200, 255, 254], label:'Ice Blue'     },
-  { id:'k_skyblue',     hex:'#70d1fa', rgb:[112, 209, 250], label:'Sky Blue'     },
-  { id:'k_cerulean',    hex:'#60b3b4', rgb:[96,  179, 180], label:'Cerulean'     },
-  // Row 7 — dark purples / light blues / bright blues
-  { id:'k_taupe',       hex:'#7c5f76', rgb:[124, 95,  118], label:'Taupe'        },
-  { id:'k_indigo',      hex:'#4b4867', rgb:[75,  72,  103], label:'Indigo'       },
-  { id:'k_darkindigo',  hex:'#242f46', rgb:[36,  47,  70 ], label:'Dk. Indigo'   },
-  { id:'k_periwinkle',  hex:'#91d2f9', rgb:[145, 210, 249], label:'Periwinkle'   },
-  { id:'k_electric',    hex:'#03d6fb', rgb:[3,   214, 251], label:'Electric'     },
-  { id:'k_turquoise',   hex:'#00bcbc', rgb:[0,   188, 188], label:'Turquoise'    },
-  { id:'k_cornflower',  hex:'#7f7efc', rgb:[127, 126, 252], label:'Cornflower'   },
-  { id:'k_royal',       hex:'#0600f4', rgb:[6,   0,   244], label:'Royal Blue'   },
-  { id:'k_ultramarine', hex:'#0100c1', rgb:[1,   0,   193], label:'Ultramarine'  },
-  // Row 8 — warm golds / hot pinks / lime greens
-  { id:'k_butter',      hex:'#f5c586', rgb:[245, 197, 134], label:'Butter'       },
-  { id:'k_amber',       hex:'#f09503', rgb:[240, 149, 3  ], label:'Amber'        },
-  { id:'k_rust',        hex:'#cd6101', rgb:[205, 97,  1  ], label:'Rust'         },
-  { id:'k_hotpink',     hex:'#fc5893', rgb:[252, 88,  147], label:'Hot Pink'     },
-  { id:'k_fuchsia',     hex:'#c00287', rgb:[192, 2,   135], label:'Fuchsia'      },
-  { id:'k_berry',       hex:'#970165', rgb:[151, 1,   101], label:'Berry'        },
-  { id:'k_lime',        hex:'#9fe84f', rgb:[159, 232, 79 ], label:'Lime'         },
-  { id:'k_grass',       hex:'#5c9018', rgb:[92,  144, 24 ], label:'Grass'        },
-  { id:'k_pine',        hex:'#456100', rgb:[69,  97,  0  ], label:'Pine'         },
-];
-
-const enabledKarisu = {};
-KARISU_COLORS.forEach(c => enabledKarisu[c.id] = true);
-
-// ═══════════════════════════════════════════════════════════════
-// FLIPNOTE PATTERNS (8×8 repeating tile patterns from the ASE)
-// Each pattern is two colors interleaved. K=bg, X=fg in the 8x8 grid.
-// ═══════════════════════════════════════════════════════════════
 const PATTERN_DEFS = [
   {
     id: 'checker50',
     label: 'Checker 50%',
-    // Classic 1:1 checkerboard - most common Flipnote shading pattern
+    
     mask: [
       1,0,1,0,1,0,1,0,
       0,1,0,1,0,1,0,1,
@@ -544,7 +408,7 @@ const PATTERN_DEFS = [
   {
     id: 'checker25',
     label: 'Checker 25%',
-    // Sparse checker - light shading
+    
     mask: [
       1,0,0,0,1,0,0,0,
       0,0,0,0,0,0,0,0,
@@ -559,7 +423,7 @@ const PATTERN_DEFS = [
   {
     id: 'checker75',
     label: 'Checker 75%',
-    // Dense checker - dark shading
+    
     mask: [
       0,1,1,1,0,1,1,1,
       1,1,1,1,1,1,1,1,
@@ -574,7 +438,7 @@ const PATTERN_DEFS = [
   {
     id: 'hstripes',
     label: 'H-Stripes',
-    // Horizontal stripes - alternating rows
+    
     mask: [
       1,1,1,1,1,1,1,1,
       0,0,0,0,0,0,0,0,
@@ -589,7 +453,7 @@ const PATTERN_DEFS = [
   {
     id: 'vstripes',
     label: 'V-Stripes',
-    // Vertical stripes
+    
     mask: [
       1,0,1,0,1,0,1,0,
       1,0,1,0,1,0,1,0,
@@ -604,7 +468,7 @@ const PATTERN_DEFS = [
   {
     id: 'hstripes_thin',
     label: 'H-Stripes Thin',
-    // Thin horizontal stripes (2px gap)
+    
     mask: [
       1,1,1,1,1,1,1,1,
       1,1,1,1,1,1,1,1,
@@ -619,7 +483,7 @@ const PATTERN_DEFS = [
   {
     id: 'vstripes_thin',
     label: 'V-Stripes Thin',
-    // Thin vertical stripes
+    
     mask: [
       1,1,0,0,1,1,0,0,
       1,1,0,0,1,1,0,0,
@@ -634,7 +498,7 @@ const PATTERN_DEFS = [
   {
     id: 'dots_sparse',
     label: 'Dots Sparse',
-    // Sparse dot pattern (every 4px)
+    
     mask: [
       1,0,0,0,1,0,0,0,
       0,0,0,0,0,0,0,0,
@@ -649,7 +513,7 @@ const PATTERN_DEFS = [
   {
     id: 'dots_medium',
     label: 'Dots Medium',
-    // Medium dots (every 2px diagonal)
+    
     mask: [
       1,0,0,1,0,0,1,0,
       0,0,1,0,0,1,0,0,
@@ -664,7 +528,7 @@ const PATTERN_DEFS = [
   {
     id: 'crosshatch',
     label: 'Crosshatch',
-    // Crosshatch (diagonal grid)
+    
     mask: [
       1,0,0,0,1,0,0,0,
       0,1,0,1,0,1,0,1,
@@ -679,7 +543,7 @@ const PATTERN_DEFS = [
   {
     id: 'diagonal',
     label: 'Diagonal',
-    // Diagonal stripes (45°)
+    
     mask: [
       1,0,0,0,1,0,0,0,
       0,1,0,0,0,1,0,0,
@@ -694,7 +558,7 @@ const PATTERN_DEFS = [
   {
     id: 'diagonal_rev',
     label: 'Diagonal Rev',
-    // Reverse diagonal
+    
     mask: [
       0,0,0,1,0,0,0,1,
       0,0,1,0,0,0,1,0,
@@ -708,11 +572,7 @@ const PATTERN_DEFS = [
   },
 ];
 
-// ═══════════════════════════════════════════════════════════════
-// APP STATE
-// ═══════════════════════════════════════════════════════════════
 const MAX_EDGE = 4096, DEBOUNCE_MS = 150;
-let paletteMode = 'flipnote'; // 'flipnote' | 'karisu'
 
 const enabledOfficial = {
   dsi:   { black:true,  white:true, red:true,   blue:true,  green:false, yellow:false },
@@ -721,19 +581,15 @@ const enabledOfficial = {
 const enabledExtra = {};
 EXTRA_COLORS.forEach(c => enabledExtra[c.id] = false);
 
-// Per-color pattern assignments: colorPatternConfig[colorId] = { pattern: 'checker50' | 'none', altColor: 'black' | 'white' | ... }
 const colorPatternConfig = {};
 
 const state = {
   imageBitmap:null, outputCanvas:document.createElement('canvas'),
   previewMode:'after', processing:false, pending:false,
-  validator:{ file:null, normalized:null, analysis:null, selectedTileKey:null },
 };
 
 const $=id=>document.getElementById(id);
 const el={
-  tabConvertBtn:$('tabConvertBtn'), tabValidateBtn:$('tabValidateBtn'),
-  convertTab:$('convertTab'), validateTab:$('validateTab'),
   dropZone:$('dropZone'), fileInput:$('fileInput'),
   previewCanvas:$('previewCanvas'), showBeforeBtn:$('showBeforeBtn'), showAfterBtn:$('showAfterBtn'),
   statusText:$('statusText'), palVersion:$('palVersion'), palPaper:$('palPaper'),
@@ -748,34 +604,17 @@ const el={
   brightnessValue:$('brightnessValue'), contrastValue:$('contrastValue'), gammaValue:$('gammaValue'), blurValue:$('blurValue'),
   ditherMode:$('ditherMode'), ditherStrength:$('ditherStrength'), ditherStrengthValue:$('ditherStrengthValue'),
   scalePreset:$('scalePreset'), downloadRawBtn:$('downloadRawBtn'), downloadScaledBtn:$('downloadScaledBtn'),
-  validateDropZone:$('validateDropZone'), validateFileInput:$('validateFileInput'),
-  tileLimit:$('tileLimit'), multipleHandling:$('multipleHandling'), transparencyHandling:$('transparencyHandling'),
-  validateSummary:$('validateSummary'), validatePreviewCanvas:$('validatePreviewCanvas'),
-  validateOverlayCanvas:$('validateOverlayCanvas'), tileList:$('tileList'),
-  downloadTilesetBtn:$('downloadTilesetBtn'), downloadReportBtn:$('downloadReportBtn'),
 };
 
 const previewCtx = el.previewCanvas.getContext('2d',{willReadFrequently:true});
 previewCtx.imageSmoothingEnabled = false;
-const valPreviewCtx = el.validatePreviewCanvas.getContext('2d',{willReadFrequently:true});
-const valOverlayCtx = el.validateOverlayCanvas.getContext('2d',{willReadFrequently:true});
-valPreviewCtx.imageSmoothingEnabled = false;
 
-// ── Palette helpers ──────────────────────────────────────────────
-
-// Cache of which extra colors are actually present in the current source image
-// Updated each time a new image is loaded
 let _extraPresentCache = null;
 
-/**
- * Scan the source image and return a Set of extra color IDs whose hue is
- * actually present in the image (within a generous distance threshold).
- * This prevents e.g. purple being injected into a green/red image.
- */
 function scanExtraColorsInImage() {
   if (!state.imageBitmap) { _extraPresentCache = new Set(); return; }
 
-  // Sample the source at a reduced resolution for speed
+  
   const SAMPLE_SIZE = 128;
   const c = document.createElement('canvas');
   c.width = Math.min(state.imageBitmap.width, SAMPLE_SIZE);
@@ -783,19 +622,19 @@ function scanExtraColorsInImage() {
   c.getContext('2d').drawImage(state.imageBitmap, 0, 0, c.width, c.height);
   const { data } = c.getContext('2d').getImageData(0, 0, c.width, c.height);
 
-  // For each extra color, check if any source pixel is "close enough" in hue
-  // Use a generous squared-distance threshold in RGB space
-  const THRESHOLD_SQ = 60 * 60 * 3; // ~60 per channel
+  
+  
+  const THRESHOLD_SQ = 60 * 60 * 3; 
 
   const present = new Set();
   for (const ec of EXTRA_COLORS) {
-    if (!enabledExtra[ec.id]) continue; // not toggled on, skip scan
+    if (!enabledExtra[ec.id]) continue; 
     const [er, eg, eb] = ec.rgb;
     for (let i = 0; i < data.length; i += 4) {
       const dr = data[i] - er, dg = data[i+1] - eg, db = data[i+2] - eb;
       if (dr*dr + dg*dg + db*db < THRESHOLD_SQ) {
         present.add(ec.id);
-        break; // found one matching pixel, no need to keep scanning
+        break; 
       }
     }
   }
@@ -803,9 +642,6 @@ function scanExtraColorsInImage() {
 }
 
 function getActivePalette() {
-  if (paletteMode === 'karisu') {
-    return KARISU_COLORS.filter(c => enabledKarisu[c.id]);
-  }
   const ver = el.palVersion.value;
   const official = OFFICIAL_COLORS[ver].filter(c => enabledOfficial[ver][c.id]);
   const extra = EXTRA_COLORS.filter(c =>
@@ -864,25 +700,6 @@ function buildPaletteToggles() {
 
   updateHeaderDots();
   buildColorPatternRows();
-
-  // Build Karisu toggle grid (9×9 mirroring the original marble sheet)
-  const karisuContainer = document.getElementById('palTogglesKarisu');
-  if (karisuContainer) {
-    karisuContainer.innerHTML = '';
-    KARISU_COLORS.forEach(c => {
-      const sw = document.createElement('div');
-      sw.className = 'pal-swatch karisu-swatch' + (enabledKarisu[c.id] ? ' active' : '');
-      sw.style.background = c.hex;
-      sw.title = `${c.label}\n${c.hex}`;
-      sw.addEventListener('click', () => {
-        enabledKarisu[c.id] = !enabledKarisu[c.id];
-        sw.classList.toggle('active', enabledKarisu[c.id]);
-        updateHeaderDots(); buildColorPatternRows();
-        if (state.imageBitmap) debouncedProcess();
-      });
-      karisuContainer.appendChild(sw);
-    });
-  }
 }
 
 function updateHeaderDots() {
@@ -896,13 +713,12 @@ function updateHeaderDots() {
   });
 }
 
-// ── Color pattern row builder ───────────────────────────────────
 function buildColorPatternRows() {
   el.colorPatternRows.innerHTML = '';
   const pal = getActivePalette();
 
   pal.forEach(color => {
-    // Initialize config if not set
+    
     if (!colorPatternConfig[color.id]) {
       colorPatternConfig[color.id] = { pattern: 'none', altColor: 'auto' };
     }
@@ -910,18 +726,18 @@ function buildColorPatternRows() {
     const row = document.createElement('div');
     row.className = 'color-pat-row';
 
-    // Color swatch
+    
     const swatch = document.createElement('div');
     swatch.className = 'color-pat-swatch';
     swatch.style.background = color.hex;
     swatch.dataset.id = color.id;
 
-    // Color label
+    
     const label = document.createElement('div');
     label.className = 'color-pat-label';
     label.textContent = color.label;
 
-    // Pattern selector
+    
     const patSelect = document.createElement('select');
     patSelect.className = 'color-pat-select';
     const noneOpt = document.createElement('option');
@@ -936,7 +752,7 @@ function buildColorPatternRows() {
     });
     patSelect.value = colorPatternConfig[color.id].pattern;
 
-    // Live pattern preview chip (32×32 canvas showing pattern in this color)
+    
     const previewChip = document.createElement('canvas');
     previewChip.width = 16; previewChip.height = 16;
     previewChip.style.cssText = 'width:32px;height:32px;border-radius:3px;border:1px solid #444;image-rendering:pixelated;flex-shrink:0;';
@@ -945,14 +761,14 @@ function buildColorPatternRows() {
       const cfg = colorPatternConfig[color.id];
       const pat = cfg && cfg.pattern !== 'none' ? PATTERN_DEFS.find(p => p.id === cfg.pattern) : null;
       const altColor = cfg ? resolveAltColorHex(color, cfg.altColor, pal) : '#000000';
-      // Fill with color
+      
       ctx.fillStyle = color.hex;
       ctx.fillRect(0, 0, 16, 16);
       if (pat) {
         ctx.fillStyle = altColor;
         for (let py = 0; py < 8; py++) for (let px = 0; px < 8; px++) {
           if (pat.mask[py * 8 + px] === 0) {
-            // draw 2×2 pixel (scale 2 into 16×16)
+            
             ctx.fillRect(px * 2, py * 2, 2, 2);
           }
         }
@@ -962,13 +778,13 @@ function buildColorPatternRows() {
 
     patSelect.addEventListener('change', () => {
       colorPatternConfig[color.id].pattern = patSelect.value;
-      // Show/hide alt color controls
+      
       altWrapper.style.display = patSelect.value === 'none' ? 'none' : 'flex';
       renderChip();
       if (state.imageBitmap) debouncedProcess();
     });
 
-    // Alt color label + selector — wrapped so we can hide when pattern=none
+    
     const altWrapper = document.createElement('div');
     altWrapper.style.cssText = 'display:flex;align-items:center;gap:6px;flex-shrink:0;';
     altWrapper.style.display = colorPatternConfig[color.id].pattern === 'none' ? 'none' : 'flex';
@@ -984,7 +800,7 @@ function buildColorPatternRows() {
     autoOpt.textContent = t('patterns.auto');
     altSelect.appendChild(autoOpt);
     pal.forEach(c => {
-      if (c.id === color.id) return; // skip self
+      if (c.id === color.id) return; 
       const opt = document.createElement('option');
       opt.value = c.id;
       opt.textContent = c.label;
@@ -1003,7 +819,6 @@ function buildColorPatternRows() {
   });
 }
 
-/** Resolve alt color as a CSS hex string for preview rendering */
 function resolveAltColorHex(color, altColorId, pal) {
   if (altColorId !== 'auto') {
     const found = pal.find(c => c.id === altColorId);
@@ -1014,18 +829,6 @@ function resolveAltColorHex(color, altColorId, pal) {
   return pal.find(c => c.id === 'black')?.hex || '#000000';
 }
 
-// ── Tabs ─────────────────────────────────────────────────────────
-el.tabConvertBtn.addEventListener('click', () => switchTab('convert'));
-el.tabValidateBtn.addEventListener('click', () => switchTab('validate'));
-function switchTab(tab) {
-  const c = tab === 'convert';
-  el.tabConvertBtn.classList.toggle('active', c);
-  el.tabValidateBtn.classList.toggle('active', !c);
-  el.convertTab.classList.toggle('active', c);
-  el.validateTab.classList.toggle('active', !c);
-}
-
-// ── Controls ──────────────────────────────────────────────────────
 const debouncedProcess = debounce(processImagePipeline, DEBOUNCE_MS);
 
 el.dropZone.addEventListener('click', () => el.fileInput.click());
@@ -1049,20 +852,6 @@ el.dropZone.addEventListener('drop', e => { const f=e.dataTransfer?.files?.[0]; 
 el.palVersion.addEventListener('change', () => { buildPaletteToggles(); if (state.imageBitmap) debouncedProcess(); });
 el.palPaper.addEventListener('change', () => { updateHeaderDots(); if (state.imageBitmap) debouncedProcess(); });
 
-// ── Palette mode switcher (Flipnote ↔ Karisu) ──────────────────
-function setPaletteMode(mode) {
-  paletteMode = mode;
-  const isKarisu = mode === 'karisu';
-  document.getElementById('palModeFlipnote').classList.toggle('active', !isKarisu);
-  document.getElementById('palModeKarisu').classList.toggle('active',    isKarisu);
-  document.getElementById('flipnotePalControls').style.display = isKarisu ? 'none' : '';
-  document.getElementById('karisuPalControls').style.display   = isKarisu ? ''     : 'none';
-  updateHeaderDots(); buildColorPatternRows();
-  if (state.imageBitmap) debouncedProcess();
-}
-document.getElementById('palModeFlipnote').addEventListener('click', () => setPaletteMode('flipnote'));
-document.getElementById('palModeKarisu').addEventListener('click',   () => setPaletteMode('karisu'));
-
 el.sizePreset.addEventListener('change', () => {
   const [w, h] = parsePresetSize(el.sizePreset.value);
   if (w && h) { el.customWidth.value = w; el.customHeight.value = h; }
@@ -1073,17 +862,6 @@ el.showAfterBtn.addEventListener('click',  () => { state.previewMode='after';  e
 el.downloadRawBtn.addEventListener('click', downloadRaw);
 el.downloadScaledBtn.addEventListener('click', downloadScaled);
 
-// Validator
-el.validateDropZone.addEventListener('click', () => el.validateFileInput.click());
-el.validateFileInput.addEventListener('change', e => { const f=e.target.files?.[0]; if(f) handleValidateUpload(f); });
-['dragenter','dragover'].forEach(t => el.validateDropZone.addEventListener(t, e => { e.preventDefault(); el.validateDropZone.classList.add('drag-over'); }));
-['dragleave','drop'].forEach(t => el.validateDropZone.addEventListener(t, e => { e.preventDefault(); el.validateDropZone.classList.remove('drag-over'); }));
-el.validateDropZone.addEventListener('drop', e => { const f=e.dataTransfer?.files?.[0]; if(f) handleValidateUpload(f); });
-[el.tileLimit, el.multipleHandling, el.transparencyHandling].forEach(n => n.addEventListener('input', () => { if (state.validator.file) handleValidateUpload(state.validator.file); }));
-el.downloadTilesetBtn.addEventListener('click', downloadTileset);
-el.downloadReportBtn.addEventListener('click', downloadReport);
-
-// ── Load file ─────────────────────────────────────────────────────
 async function loadFile(file) {
   if (!file.type.startsWith('image/')) { setStatus(t('status.unsupported'), true); return; }
   try {
@@ -1121,9 +899,6 @@ function loadImageFallback(file) {
   });
 }
 
-// ═══════════════════════════════════════════════════════════════
-// IMAGE PIPELINE
-// ═══════════════════════════════════════════════════════════════
 function processImagePipeline() {
   if (!state.imageBitmap || state.processing) { state.pending=true; return; }
   state.processing = true;
@@ -1147,7 +922,7 @@ function processImagePipeline() {
       applyDitherAndQuantize(imgData, el.ditherMode.value, +el.ditherStrength.value/100);
       enforcePaletteSafety(imgData);
 
-      // Per-color pattern post-process
+      
       applyPerColorPatterns(imgData);
 
       wctx.putImageData(imgData, 0, 0);
@@ -1168,20 +943,11 @@ function processImagePipeline() {
   });
 }
 
-// ═══════════════════════════════════════════════════════════════
-// FLIPNOTE PATTERN APPLICATION  (per-color)
-// ═══════════════════════════════════════════════════════════════
-
-/**
- * Apply per-color patterns to the already-quantized image.
- * Each palette color can independently have a different pattern (or none).
- * The "mix with" alt-color controls what the pattern's OFF pixels become.
- */
 function applyPerColorPatterns(imageData) {
   const pal = getActivePalette();
   if (pal.length < 2) return;
 
-  // Check if any color actually has a pattern — skip entirely if not
+  
   const anyPattern = pal.some(c => {
     const cfg = colorPatternConfig[c.id];
     return cfg && cfg.pattern && cfg.pattern !== 'none';
@@ -1189,14 +955,14 @@ function applyPerColorPatterns(imageData) {
   if (!anyPattern) return;
 
   const { data, width, height } = imageData;
-  const intensity = +el.patIntensity.value / 100;  // 0–1
+  const intensity = +el.patIntensity.value / 100;  
   const scale     = Math.max(1, Math.round(+el.patScale.value));
 
-  // Build a quick RGB→paletteEntry lookup map
+  
   const rgbMap = new Map();
   pal.forEach(c => rgbMap.set(c.rgb.join(','), c));
 
-  // Pre-resolve alt colors for each palette entry
+  
   const altColorCache = {};
   pal.forEach(color => {
     const cfg = colorPatternConfig[color.id] || { pattern: 'none', altColor: 'auto' };
@@ -1208,24 +974,24 @@ function applyPerColorPatterns(imageData) {
       const i = (y * width + x) * 4;
       const r = data[i], g = data[i+1], b = data[i+2];
 
-      // Find which palette color this pixel is
+      
       const palEntry = rgbMap.get(`${r},${g},${b}`);
-      if (!palEntry) continue; // shouldn't happen after enforcePaletteSafety
+      if (!palEntry) continue; 
 
       const cfg = colorPatternConfig[palEntry.id];
-      if (!cfg || cfg.pattern === 'none') continue; // this color has no pattern
+      if (!cfg || cfg.pattern === 'none') continue; 
 
       const pat = PATTERN_DEFS.find(p => p.id === cfg.pattern);
       if (!pat) continue;
 
-      // Pattern tile lookup
+      
       const tx = Math.floor(x / scale) % 8;
       const ty = Math.floor(y / scale) % 8;
       const patBit = pat.mask[ty * 8 + tx];
 
       if (patBit === 0) {
-        // This pixel is on the "off" side of the pattern — replace with alt color
-        // Probabilistic intensity using stable position-based noise
+        
+        
         const noise = ((x * 1664525 + y * 1013904223) & 0xffff) / 65535;
         if (noise > intensity) continue;
 
@@ -1238,25 +1004,17 @@ function applyPerColorPatterns(imageData) {
   }
 }
 
-/**
- * Resolve the alt/mix color for a palette entry.
- * altColorId: 'auto' | a palette color id
- * Auto logic: white↔black, colors→black (or white if black not in palette)
- */
 function resolveAltColor(color, altColorId, pal) {
   if (altColorId !== 'auto') {
     const found = pal.find(c => c.id === altColorId);
     if (found) return found;
   }
-  // Auto
+  
   if (color.id === 'white') return pal.find(c => c.id === 'black') || pal[0];
   if (color.id === 'black') return pal.find(c => c.id === 'white') || pal[pal.length - 1];
   return pal.find(c => c.id === 'black') || pal.find(c => c.id === 'white') || pal[0];
 }
 
-// ═══════════════════════════════════════════════════════════════
-// COLOR MATH
-// ═══════════════════════════════════════════════════════════════
 function findNearestPaletteIndex(r, g, b) {
   const pal = getActivePalette();
   let minD = Infinity, best = 0;
@@ -1371,7 +1129,6 @@ function diffuse(eR,eG,eB,w,h,x,y,dR,dG,dB,offsets) {
   }
 }
 
-// ── Preview ───────────────────────────────────────────────────────
 function drawPreview() {
   const src = state.previewMode==='before' ? makeBeforeCanvas() : state.outputCanvas;
   if (!src||!src.width) { renderPlaceholder(); return; }
@@ -1392,14 +1149,25 @@ function makeBeforeCanvas() {
   return t;
 }
 
+const placeholderImg = new Image();
+placeholderImg.src = 'https://github.com/famikomputa/flipnote-converter/blob/main/images/nofileselected.png?raw=true';
+let placeholderImgReady = false;
+placeholderImg.onload = () => { placeholderImgReady = true; if (!state.imageBitmap) renderPlaceholder(); };
+
 function renderPlaceholder() {
   el.previewCanvas.width=320; el.previewCanvas.height=288;
   previewCtx.fillStyle='#000'; previewCtx.fillRect(0,0,320,288);
-  previewCtx.fillStyle='#444'; previewCtx.font='14px sans-serif';
-  previewCtx.fillText(t('placeholder.text'),40,150);
+  if (placeholderImgReady) {
+    const iw=placeholderImg.width, ih=placeholderImg.height;
+    const scale=Math.min(320/iw,288/ih)*0.6;
+    const dw=iw*scale, dh=ih*scale;
+    previewCtx.drawImage(placeholderImg,(320-dw)/2,(288-dh)/2,dw,dh);
+  } else {
+    previewCtx.fillStyle='#444'; previewCtx.font='14px sans-serif';
+    previewCtx.fillText(t('placeholder.text'),40,150);
+  }
 }
 
-// ── Download ───────────────────────────────────────────────────────
 function downloadRaw() {
   if (!state.outputCanvas.width) { setStatus(t('status.convertFirst'),true); return; }
   state.outputCanvas.toBlob(b=>dlBlob(b,`flipnote_${state.outputCanvas.width}x${state.outputCanvas.height}.png`),'image/png');
@@ -1422,7 +1190,6 @@ function dlBlob(blob,name) {
   URL.revokeObjectURL(url);
 }
 
-// ── Size/crop helpers ──────────────────────────────────────────────
 function getOutputSize() {
   if (el.sizePreset.value!=='custom') return parsePresetSize(el.sizePreset.value);
   const mode=el.customMode.value;
@@ -1472,187 +1239,14 @@ function updateReadouts() {
   el.patScaleValue.textContent       = el.patScale.value + '×';
 }
 
-// ═══════════════════════════════════════════════════════════════
-// VALIDATOR
-// ═══════════════════════════════════════════════════════════════
-async function handleValidateUpload(file) {
-  if (!file.type.startsWith('image/')) return;
-  state.validator.file=file;
-  try {
-    const bmp=await createImageBitmap(file,{imageOrientation:'from-image'});
-    const normalized=normalizeToTileGrid(bmp);
-    const analysis=analyzeTiles(normalized.imageData,{tileLimit:+el.tileLimit.value||192});
-    state.validator.normalized=normalized; state.validator.analysis=analysis; state.validator.selectedTileKey=null;
-    drawValPreview(); drawValOverlay(); renderValSummary(); renderTileList();
-  } catch(err) {
-    console.error(err);
-    el.validateSummary.innerHTML=`<h3>Result Summary</h3><p>Analysis failed: ${file.name}</p>`;
-  }
-}
-
-function normalizeToTileGrid(src) {
-  const sz=8,mode=el.multipleHandling.value;
-  const sw=src.width,sh=src.height;
-  const aw=mode==='crop'?Math.max(sz,Math.floor(sw/sz)*sz):Math.ceil(sw/sz)*sz;
-  const ah=mode==='crop'?Math.max(sz,Math.floor(sh/sz)*sz):Math.ceil(sh/sz)*sz;
-  const c=document.createElement('canvas'); c.width=aw; c.height=ah;
-  const ctx=c.getContext('2d',{willReadFrequently:true});
-  ctx.fillStyle='#fffffd'; ctx.fillRect(0,0,aw,ah);
-  ctx.drawImage(src,0,0,Math.min(sw,aw),Math.min(sh,ah));
-  const imgData=ctx.getImageData(0,0,aw,ah);
-  const d=imgData.data;
-  for(let i=0;i<d.length;i+=4) if(d[i+3]<255){d[i]=255;d[i+1]=255;d[i+2]=253;d[i+3]=255;}
-  ctx.putImageData(imgData,0,0);
-  return{srcWidth:sw,srcHeight:sh,analyzedWidth:aw,analyzedHeight:ah,canvas:c,imageData:imgData};
-}
-
-function analyzeTiles(imageData,opts={}) {
-  const sz=8,tileLimit=opts.tileLimit??192;
-  const{data,width:w,height:h}=imageData;
-  const tilesX=Math.floor(w/sz),tilesY=Math.floor(h/sz);
-  const colorMap=new Map();
-  for(let i=0;i<data.length;i+=4){const k=`${data[i]},${data[i+1]},${data[i+2]}`;colorMap.set(k,(colorMap.get(k)??0)+1);}
-  const freqByKey={},tileKeyByPos=[],positionsByKey={};
-  for(let ty=0;ty<tilesY;ty++) for(let tx=0;tx<tilesX;tx++){
-    const key=buildTileKey(imageData,tx*sz,ty*sz,sz);
-    tileKeyByPos.push(key); freqByKey[key]=(freqByKey[key]??0)+1;
-    if(!positionsByKey[key])positionsByKey[key]=[];
-    positionsByKey[key].push(ty*tilesX+tx);
-  }
-  const uniqueTiles=Object.keys(freqByKey).length;
-  const rareUniqueTiles=Object.values(freqByKey).filter(v=>v===1).length;
-  const paletteOk=colorMap.size<=6,tilesOk=uniqueTiles<=tileLimit;
-  const status=paletteOk&&tilesOk?'OK':(!paletteOk&&!tilesOk?'BOTH NG':(!paletteOk?'PALETTE_NG':'TILES_OVER'));
-  return{analyzedWidth:w,analyzedHeight:h,tileSize:sz,tilesX,tilesY,totalTiles:tilesX*tilesY,
-    uniqueColors:colorMap.size,uniqueTiles,rareUniqueTiles,paletteOk,tilesOk,tileLimit,
-    status,tileKeyByPos,freqByKey,positionsByKey};
-}
-
-function buildTileKey(imgData,x0,y0,sz) {
-  const{data,width}=imgData; const arr=new Uint8Array(sz*sz*4); let ptr=0;
-  for(let y=0;y<sz;y++) for(let x=0;x<sz;x++){
-    const i=((y0+y)*width+(x0+x))*4;
-    arr[ptr++]=data[i];arr[ptr++]=data[i+1];arr[ptr++]=data[i+2];arr[ptr++]=data[i+3];
-  }
-  let bin=''; for(let i=0;i<arr.length;i++) bin+=String.fromCharCode(arr[i]);
-  return btoa(bin);
-}
-
-function drawValPreview() {
-  const{canvas:src}=state.validator.normalized;
-  const scale=Math.max(1,Math.floor((el.validatePreviewCanvas.clientWidth||320)/src.width));
-  const w=src.width*scale,h=src.height*scale;
-  el.validatePreviewCanvas.width=w; el.validatePreviewCanvas.height=h;
-  el.validateOverlayCanvas.width=w; el.validateOverlayCanvas.height=h;
-  valPreviewCtx.clearRect(0,0,w,h); valPreviewCtx.imageSmoothingEnabled=false;
-  valPreviewCtx.drawImage(src,0,0,w,h);
-}
-
-function drawValOverlay() {
-  const a=state.validator.analysis; if(!a) return;
-  const w=el.validateOverlayCanvas.width,h=el.validateOverlayCanvas.height;
-  const tW=w/a.tilesX,tH=h/a.tilesY;
-  valOverlayCtx.clearRect(0,0,w,h);
-  let maxF=1; Object.values(a.freqByKey).forEach(v=>{maxF=Math.max(maxF,v);});
-  for(let i=0;i<a.tileKeyByPos.length;i++){
-    const freq=a.freqByKey[a.tileKeyByPos[i]];
-    const s=1-Math.log(freq+1)/Math.log(maxF+1);
-    const x=(i%a.tilesX)*tW,y=Math.floor(i/a.tilesX)*tH;
-    valOverlayCtx.fillStyle=`rgba(254,16,16,${0.45*s})`;
-    valOverlayCtx.fillRect(x,y,tW,tH);
-  }
-  valOverlayCtx.strokeStyle='rgba(255,231,0,0.3)'; valOverlayCtx.lineWidth=1;
-  for(let x=0;x<=a.tilesX;x++){
-    valOverlayCtx.beginPath(); valOverlayCtx.moveTo(Math.round(x*tW)+.5,0);
-    valOverlayCtx.lineTo(Math.round(x*tW)+.5,h); valOverlayCtx.stroke();
-  }
-  for(let y=0;y<=a.tilesY;y++){
-    valOverlayCtx.beginPath(); valOverlayCtx.moveTo(0,Math.round(y*tH)+.5);
-    valOverlayCtx.lineTo(w,Math.round(y*tH)+.5); valOverlayCtx.stroke();
-  }
-  if(state.validator.selectedTileKey){
-    const positions=a.positionsByKey[state.validator.selectedTileKey]||[];
-    valOverlayCtx.strokeStyle='#ffe700'; valOverlayCtx.lineWidth=2;
-    positions.forEach(idx=>{
-      const x=(idx%a.tilesX)*tW,y=Math.floor(idx/a.tilesX)*tH;
-      valOverlayCtx.strokeRect(x+1,y+1,tW-2,tH-2);
-    });
-  }
-}
-
-function renderValSummary() {
-  const a=state.validator.analysis,n=state.validator.normalized; if(!a||!n) return;
-  const rr=a.uniqueTiles?((a.rareUniqueTiles/a.uniqueTiles)*100).toFixed(1):'0.0';
-  el.validateSummary.innerHTML=`
-    <h3>Result Summary</h3>
-    <p>Status: <strong class="${a.status==='OK'?'ok':'ng'}">${a.status}</strong></p>
-    <p>Source: ${n.srcWidth} × ${n.srcHeight}</p>
-    <p>Analyzed: ${a.analyzedWidth} × ${a.analyzedHeight}</p>
-    <p>Total tiles: ${a.totalTiles}</p>
-    <p>Colors used: ${a.uniqueColors} <span class="${a.paletteOk?'ok':'ng'}">${a.paletteOk?'(OK)':'(PALETTE NG)'}</span></p>
-    <p>Unique tiles: ${a.uniqueTiles} / ${a.tileLimit} <span class="${a.tilesOk?'ok':'ng'}">${a.tilesOk?'(OK)':'(OVER LIMIT)'}</span></p>
-    <p>Rare unique tiles: ${a.rareUniqueTiles} (${rr}%)</p>
-  `;
-}
-
-function renderTileList() {
-  const a=state.validator.analysis; if(!a) return;
-  el.tileList.innerHTML='';
-  Object.entries(a.freqByKey).sort((x,y)=>x[1]-y[1]).forEach(([key,freq])=>{
-    const item=document.createElement('button');
-    item.className='tile-item'+(state.validator.selectedTileKey===key?' active':'');
-    const c=document.createElement('canvas'); c.width=8; c.height=8;
-    const bin=atob(key); const arr=new Uint8ClampedArray(bin.length);
-    for(let i=0;i<bin.length;i++) arr[i]=bin.charCodeAt(i);
-    c.getContext('2d').putImageData(new ImageData(arr,8,8),0,0);
-    const info=document.createElement('small'); info.textContent=`freq:${freq}`;
-    item.append(c,info);
-    item.addEventListener('click',()=>{state.validator.selectedTileKey=key;renderTileList();drawValOverlay();});
-    el.tileList.appendChild(item);
-  });
-}
-
-async function downloadTileset() {
-  const a=state.validator.analysis; if(!a) return;
-  const cols=16,sz=8;
-  const entries=Object.entries(a.freqByKey).sort((x,y)=>x[1]-y[1]);
-  const rows=Math.max(1,Math.ceil(entries.length/cols));
-  const c=document.createElement('canvas'); c.width=cols*sz; c.height=rows*sz;
-  const ctx=c.getContext('2d'); ctx.clearRect(0,0,c.width,c.height);
-  entries.forEach(([key],idx)=>{
-    const col=idx%cols,row=Math.floor(idx/cols);
-    const bin=atob(key); const arr=new Uint8ClampedArray(bin.length);
-    for(let i=0;i<bin.length;i++) arr[i]=bin.charCodeAt(i);
-    ctx.putImageData(new ImageData(arr,sz,sz),col*sz,row*sz);
-  });
-  c.toBlob(b=>dlBlob(b,`tileset_${a.uniqueTiles}tiles.png`),'image/png');
-}
-
-function downloadReport() {
-  const a=state.validator.analysis,n=state.validator.normalized,f=state.validator.file;
-  if(!a||!n||!f) return;
-  const report={version:'flipnote-validator-v1',timestamp:new Date().toISOString(),
-    input:{fileName:f.name,mimeType:f.type,srcWidth:n.srcWidth,srcHeight:n.srcHeight},
-    settings:{tileLimit:+el.tileLimit.value,padOrCrop:el.multipleHandling.value,transparencyMode:el.transparencyHandling.value},
-    results:{analyzedWidth:a.analyzedWidth,analyzedHeight:a.analyzedHeight,tilesX:a.tilesX,tilesY:a.tilesY,
-      totalTiles:a.totalTiles,uniqueColors:a.uniqueColors,uniqueTiles:a.uniqueTiles,
-      rareUniqueTiles:a.rareUniqueTiles,status:a.status}};
-  dlBlob(new Blob([JSON.stringify(report,null,2)],{type:'application/json'}),`flipnote_report_${Date.now()}.json`);
-}
-
-// ── Utility ────────────────────────────────────────────────────────
 function clamp(v,mn,mx){return Math.max(mn,Math.min(mx,v));}
 function debounce(fn,ms){let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),ms);};}
 function setStatus(msg,isError=false){el.statusText.textContent=msg;el.statusText.style.color=isError?'#fe1010':'#7a7a90';}
 
-// ═══════════════════════════════════════════════════════════════
-// INTERNATIONALISATION
-// ═══════════════════════════════════════════════════════════════
 const TRANSLATIONS = {
   en: {
     'header.subtitle':        'Convert photos & illustrations into Flipnote Studio style',
     'tab.convert':            'Convert',
-    'tab.validate':           'PNG Validation',
     'drop.main':              'Drag & drop an image',
     'drop.or':                'or click to choose',
     'drop.formats':           'PNG / JPG / WebP',
@@ -1671,9 +1265,6 @@ const TRANSLATIONS = {
     'palette.offByDefault':   'off by default',
     'palette.extendedNote':   "These aren't in Flipnote but can be unlocked for creative use. They're mixed by dithering official colors together.",
     'palette.alwaysNote':     'Black & white are always active. Colors from the real Flipnote ASE file.',
-    'palette.karisuNote':     '81 marble colors — click any to toggle off.',
-    'paletteMode.flipnote':   '🎨 Flipnote',
-    'paletteMode.karisu':     '✨ Karisu Palette',
     'patterns.title':         'Flipnote Patterns',
     'patterns.note':          'Assign a unique pattern to each palette color independently. Colors with no pattern assigned stay solid.',
     'patterns.intensity':     'Intensity',
@@ -1707,22 +1298,6 @@ const TRANSLATIONS = {
     'output.snsUpscale':      'SNS upscale',
     'output.savePng':         'Save PNG',
     'output.saveUpscaled':    'Save Upscaled PNG for SNS',
-    'validate.title':         'PNG Validation',
-    'validate.drop':          'Drag & drop final exported PNG',
-    'validate.dropHint':      'Check color count and tile uniqueness',
-    'validate.tileLimit':     'Tile limit',
-    'validate.multipleHandling': 'Multiples-of-8 handling',
-    'validate.pad':           'Pad',
-    'validate.crop':          'Crop',
-    'validate.transparencyHandling': 'Transparent pixel handling',
-    'validate.replaceTransparent': 'Replace with background',
-    'validate.color0':        'Treat as color0',
-    'validate.resultSummary': 'Result Summary',
-    'validate.notAnalyzed':   'Not analyzed',
-    'validate.downloadTileset': 'Download Tileset PNG',
-    'validate.downloadReport':  'Download Report JSON',
-    'validate.previewOverlay':  'Preview / Overlay',
-    'validate.tileList':        'Unique Tile List',
     'status.loading':           'Loading...',
     'status.processing':        'Processing...',
     'status.unsupported':       'Unsupported format.',
@@ -1731,10 +1306,71 @@ const TRANSLATIONS = {
     'status.convertFirst':      'Convert an image first.',
     'placeholder.text':         'Upload an image to begin',
   },
+  ru: {
+    'header.subtitle':        'Преобразуйте фото и иллюстрации в стиль Flipnote Studio',
+    'tab.convert':            'Конвертировать',
+    'drop.main':              'Перетащите изображение сюда',
+    'drop.or':                'или нажмите, чтобы выбрать',
+    'drop.formats':           'PNG / JPG / WebP',
+    'toolbar.before':         'До',
+    'toolbar.after':          'После',
+    'settings.title':         'Настройки',
+    'palette.title':          'Палитра',
+    'palette.version':        'Версия',
+    'palette.dsi':            'Flipnote Studio (DSi) — 4 цвета',
+    'palette.3ds':            'Flipnote Studio 3D (3DS) — 6 цветов',
+    'palette.paper':          'Бумага',
+    'palette.whitePaper':     'Белая бумага',
+    'palette.blackPaper':     'Чёрная бумага',
+    'palette.official':       'Официальные цвета (нажмите для переключения)',
+    'palette.extended':       'Расширенные цвета',
+    'palette.offByDefault':   'по умолчанию выключено',
+    'palette.extendedNote':   'Этих цветов нет во Flipnote, но их можно разблокировать для творческого использования. Они получены путём дизеринга официальных цветов.',
+    'palette.alwaysNote':     'Чёрный и белый всегда активны. Цвета взяты из настоящего ASE-файла Flipnote.',
+    'patterns.title':         'Узоры Flipnote',
+    'patterns.note':          'Назначьте уникальный узор каждому цвету палитры отдельно. Цвета без назначенного узора остаются сплошными.',
+    'patterns.intensity':     'Интенсивность',
+    'patterns.scale':         'Масштаб',
+    'patterns.none':          '— Нет (сплошной) —',
+    'patterns.mixWith':       'смешать с:',
+    'patterns.auto':          'Авто',
+    'crop.title':             'Обрезка / Изменение размера',
+    'crop.aspect':             'Соотношение сторон обрезки',
+    'crop.free':              'Свободно',
+    'crop.zoom':              'Масштаб',
+    'crop.panX':              'Сдвиг по X',
+    'crop.panY':              'Сдвиг по Y',
+    'crop.outputPreset':      'Пресет размера вывода',
+    'crop.custom':            'Свой вариант',
+    'crop.customMode':        'Свой режим',
+    'crop.fixWidth':          'Фиксировать ширину (сохранить пропорции)',
+    'crop.fixHeight':         'Фиксировать высоту (сохранить пропорции)',
+    'crop.customWidth':       'Своя ширина',
+    'crop.customHeight':      'Своя высота',
+    'photo.title':            'Предварительная коррекция фото',
+    'photo.brightness':       'Яркость',
+    'photo.contrast':         'Контраст',
+    'photo.gamma':            'Гамма',
+    'photo.blur':             'Размытие (пикс.)',
+    'dither.title':           'Квантование / Дизеринг',
+    'dither.algorithm':       'Алгоритм дизеринга',
+    'dither.off':             'ВЫКЛ',
+    'dither.strength':        'Сила дизеринга',
+    'output.title':           'Вывод PNG',
+    'output.snsUpscale':      'Увеличение для соцсетей',
+    'output.savePng':         'Сохранить PNG',
+    'output.saveUpscaled':    'Сохранить увеличенный PNG для соцсетей',
+    'status.loading':           'Загрузка...',
+    'status.processing':        'Обработка...',
+    'status.unsupported':       'Неподдерживаемый формат.',
+    'status.loadFailed':        'Не удалось загрузить изображение.',
+    'status.processFailed':     'Ошибка обработки.',
+    'status.convertFirst':      'Сначала конвертируйте изображение.',
+    'placeholder.text':         'Загрузите изображение, чтобы начать',
+  },
   ja: {
     'header.subtitle':        '写真やイラストをフリップノートスタジオ風に変換',
     'tab.convert':            '変換',
-    'tab.validate':           'PNG検証',
     'drop.main':              '画像をドラッグ＆ドロップ',
     'drop.or':                'またはクリックして選択',
     'drop.formats':           'PNG / JPG / WebP',
@@ -1753,9 +1389,6 @@ const TRANSLATIONS = {
     'palette.offByDefault':   'デフォルトはオフ',
     'palette.extendedNote':   'これらはフリップノートにはありませんが、公式カラーのディザリングで再現できます。',
     'palette.alwaysNote':     '黒と白は常に有効です。実際のフリップノートASEファイルのカラーです。',
-    'palette.karisuNote':     '81色のマーブルカラー — クリックで個別にオフにできます。',
-    'paletteMode.flipnote':   '🎨 フリップノート',
-    'paletteMode.karisu':     '✨ カリスパレット',
     'patterns.title':         'フリップノートパターン',
     'patterns.note':          'パレットの各カラーに個別にパターンを割り当てられます。パターンなしのカラーは単色のままです。',
     'patterns.intensity':     '強度',
@@ -1789,22 +1422,6 @@ const TRANSLATIONS = {
     'output.snsUpscale':      'SNS用アップスケール',
     'output.savePng':         'PNGを保存',
     'output.saveUpscaled':    'SNS用アップスケールPNGを保存',
-    'validate.title':         'PNG検証',
-    'validate.drop':          '書き出したPNGをドラッグ＆ドロップ',
-    'validate.dropHint':      'カラー数とタイルのユニーク性をチェック',
-    'validate.tileLimit':     'タイル上限',
-    'validate.multipleHandling': '8の倍数の処理',
-    'validate.pad':           'パディング',
-    'validate.crop':          'クロップ',
-    'validate.transparencyHandling': '透明ピクセルの処理',
-    'validate.replaceTransparent': '背景色に置換',
-    'validate.color0':        'カラー0として扱う',
-    'validate.resultSummary': '結果サマリー',
-    'validate.notAnalyzed':   '未分析',
-    'validate.downloadTileset': 'タイルセットPNGをダウンロード',
-    'validate.downloadReport':  'レポートJSONをダウンロード',
-    'validate.previewOverlay':  'プレビュー / オーバーレイ',
-    'validate.tileList':        'ユニークタイル一覧',
     'status.loading':           '読み込み中...',
     'status.processing':        '処理中...',
     'status.unsupported':       'サポートされていない形式です。',
@@ -1816,7 +1433,6 @@ const TRANSLATIONS = {
   pt: {
     'header.subtitle':        'Converta fotos e ilustrações no estilo Flipnote Studio',
     'tab.convert':            'Converter',
-    'tab.validate':           'Validação PNG',
     'drop.main':              'Arraste e solte uma imagem',
     'drop.or':                'ou clique para escolher',
     'drop.formats':           'PNG / JPG / WebP',
@@ -1835,9 +1451,6 @@ const TRANSLATIONS = {
     'palette.offByDefault':   'desativadas por padrão',
     'palette.extendedNote':   'Não estão no Flipnote, mas podem ser desbloqueadas para uso criativo via dithering.',
     'palette.alwaysNote':     'Preto e branco estão sempre ativos. Cores do arquivo ASE real do Flipnote.',
-    'palette.karisuNote':     '81 cores de mármore — clique em qualquer uma para desativar.',
-    'paletteMode.flipnote':   '🎨 Flipnote',
-    'paletteMode.karisu':     '✨ Paleta Karisu',
     'patterns.title':         'Padrões Flipnote',
     'patterns.note':          'Atribua um padrão único a cada cor da paleta. Cores sem padrão permanecem sólidas.',
     'patterns.intensity':     'Intensidade',
@@ -1871,22 +1484,6 @@ const TRANSLATIONS = {
     'output.snsUpscale':      'Upscale para SNS',
     'output.savePng':         'Salvar PNG',
     'output.saveUpscaled':    'Salvar PNG ampliado para SNS',
-    'validate.title':         'Validação PNG',
-    'validate.drop':          'Arraste e solte o PNG exportado',
-    'validate.dropHint':      'Verificar contagem de cores e unicidade de tiles',
-    'validate.tileLimit':     'Limite de tiles',
-    'validate.multipleHandling': 'Tratamento de múltiplos de 8',
-    'validate.pad':           'Preencher',
-    'validate.crop':          'Cortar',
-    'validate.transparencyHandling': 'Tratamento de pixels transparentes',
-    'validate.replaceTransparent': 'Substituir pelo fundo',
-    'validate.color0':        'Tratar como cor 0',
-    'validate.resultSummary': 'Resumo do Resultado',
-    'validate.notAnalyzed':   'Não analisado',
-    'validate.downloadTileset': 'Baixar Tileset PNG',
-    'validate.downloadReport':  'Baixar Relatório JSON',
-    'validate.previewOverlay':  'Visualização / Sobreposição',
-    'validate.tileList':        'Lista de Tiles Únicos',
     'status.loading':           'Carregando...',
     'status.processing':        'Processando...',
     'status.unsupported':       'Formato não suportado.',
@@ -1898,7 +1495,6 @@ const TRANSLATIONS = {
   es: {
     'header.subtitle':        'Convierte fotos e ilustraciones al estilo Flipnote Studio',
     'tab.convert':            'Convertir',
-    'tab.validate':           'Validación PNG',
     'drop.main':              'Arrastra y suelta una imagen',
     'drop.or':                'o haz clic para elegir',
     'drop.formats':           'PNG / JPG / WebP',
@@ -1917,9 +1513,6 @@ const TRANSLATIONS = {
     'palette.offByDefault':   'desactivados por defecto',
     'palette.extendedNote':   'No están en Flipnote, pero se pueden desbloquear mediante dithering de colores oficiales.',
     'palette.alwaysNote':     'El negro y el blanco siempre están activos. Colores del archivo ASE real de Flipnote.',
-    'palette.karisuNote':     '81 colores mármol — haz clic en cualquiera para desactivarlo.',
-    'paletteMode.flipnote':   '🎨 Flipnote',
-    'paletteMode.karisu':     '✨ Paleta Karisu',
     'patterns.title':         'Patrones Flipnote',
     'patterns.note':          'Asigna un patrón único a cada color de la paleta. Los colores sin patrón permanecen sólidos.',
     'patterns.intensity':     'Intensidad',
@@ -1953,22 +1546,6 @@ const TRANSLATIONS = {
     'output.snsUpscale':      'Escala para SNS',
     'output.savePng':         'Guardar PNG',
     'output.saveUpscaled':    'Guardar PNG escalado para SNS',
-    'validate.title':         'Validación PNG',
-    'validate.drop':          'Arrastra y suelta el PNG exportado',
-    'validate.dropHint':      'Verificar recuento de colores y unicidad de tiles',
-    'validate.tileLimit':     'Límite de tiles',
-    'validate.multipleHandling': 'Manejo de múltiplos de 8',
-    'validate.pad':           'Rellenar',
-    'validate.crop':          'Recortar',
-    'validate.transparencyHandling': 'Manejo de píxeles transparentes',
-    'validate.replaceTransparent': 'Reemplazar con fondo',
-    'validate.color0':        'Tratar como color 0',
-    'validate.resultSummary': 'Resumen de Resultado',
-    'validate.notAnalyzed':   'No analizado',
-    'validate.downloadTileset': 'Descargar Tileset PNG',
-    'validate.downloadReport':  'Descargar Informe JSON',
-    'validate.previewOverlay':  'Vista previa / Superposición',
-    'validate.tileList':        'Lista de Tiles Únicos',
     'status.loading':           'Cargando...',
     'status.processing':        'Procesando...',
     'status.unsupported':       'Formato no compatible.',
@@ -1980,7 +1557,6 @@ const TRANSLATIONS = {
   zh: {
     'header.subtitle':        '将照片和插图转换为 Flipnote Studio 风格',
     'tab.convert':            '转换',
-    'tab.validate':           'PNG 验证',
     'drop.main':              '拖放图像',
     'drop.or':                '或点击选择',
     'drop.formats':           'PNG / JPG / WebP',
@@ -1999,9 +1575,6 @@ const TRANSLATIONS = {
     'palette.offByDefault':   '默认关闭',
     'palette.extendedNote':   '这些颜色不在 Flipnote 中，但可通过官方颜色抖动解锁，用于创意用途。',
     'palette.alwaysNote':     '黑色和白色始终启用。颜色来自真实的 Flipnote ASE 文件。',
-    'palette.karisuNote':     '81 种大理石颜色 — 点击任意颜色可关闭。',
-    'paletteMode.flipnote':   '🎨 Flipnote',
-    'paletteMode.karisu':     '✨ Karisu 调色板',
     'patterns.title':         'Flipnote 图案',
     'patterns.note':          '为每种调色板颜色单独分配图案。未分配图案的颜色保持纯色。',
     'patterns.intensity':     '强度',
@@ -2035,22 +1608,6 @@ const TRANSLATIONS = {
     'output.snsUpscale':      '社交媒体放大',
     'output.savePng':         '保存 PNG',
     'output.saveUpscaled':    '保存放大 PNG（社交媒体用）',
-    'validate.title':         'PNG 验证',
-    'validate.drop':          '拖放最终导出的 PNG',
-    'validate.dropHint':      '检查颜色数量和图块唯一性',
-    'validate.tileLimit':     '图块限制',
-    'validate.multipleHandling': '8 的倍数处理',
-    'validate.pad':           '填充',
-    'validate.crop':          '裁剪',
-    'validate.transparencyHandling': '透明像素处理',
-    'validate.replaceTransparent': '替换为背景',
-    'validate.color0':        '视为颜色 0',
-    'validate.resultSummary': '结果摘要',
-    'validate.notAnalyzed':   '未分析',
-    'validate.downloadTileset': '下载图块集 PNG',
-    'validate.downloadReport':  '下载报告 JSON',
-    'validate.previewOverlay':  '预览 / 叠加',
-    'validate.tileList':        '唯一图块列表',
     'status.loading':           '加载中...',
     'status.processing':        '处理中...',
     'status.unsupported':       '不支持的格式。',
@@ -2058,6 +1615,254 @@ const TRANSLATIONS = {
     'status.processFailed':     '处理失败。',
     'status.convertFirst':      '请先转换图像。',
     'placeholder.text':         '上传图像以开始',
+  },
+  zhtw: {
+    'header.subtitle':        '將照片與插畫轉換成 Flipnote Studio 風格',
+    'tab.convert':            '轉換',
+    'drop.main':              '拖放圖片',
+    'drop.or':                '或點擊選擇',
+    'drop.formats':           'PNG / JPG / WebP',
+    'toolbar.before':         '原圖',
+    'toolbar.after':          '效果',
+    'settings.title':         '設定',
+    'palette.title':          '調色盤',
+    'palette.version':        '版本',
+    'palette.dsi':            'Flipnote Studio (DSi) — 4 色',
+    'palette.3ds':            'Flipnote Studio 3D (3DS) — 6 色',
+    'palette.paper':          '紙張',
+    'palette.whitePaper':     '白紙',
+    'palette.blackPaper':     '黑紙',
+    'palette.official':       '官方顏色（點擊切換）',
+    'palette.extended':       '擴充顏色',
+    'palette.offByDefault':   '預設關閉',
+    'palette.extendedNote':   '這些顏色並非 Flipnote 原生色彩，但可解鎖作創意用途。它們是以官方顏色抖動混合而成。',
+    'palette.alwaysNote':     '黑色與白色永遠啟用。顏色取自真實的 Flipnote ASE 檔案。',
+    'patterns.title':         'Flipnote 圖樣',
+    'patterns.note':          '為每種調色盤顏色個別指定圖樣。未指定圖樣的顏色維持純色。',
+    'patterns.intensity':     '強度',
+    'patterns.scale':         '縮放',
+    'patterns.none':          '— 無（純色）—',
+    'patterns.mixWith':       '混合對象：',
+    'patterns.auto':          '自動',
+    'crop.title':             '裁切／調整大小',
+    'crop.aspect':            '裁切比例',
+    'crop.free':              '自由',
+    'crop.zoom':              '縮放',
+    'crop.panX':              '水平位移',
+    'crop.panY':              '垂直位移',
+    'crop.outputPreset':      '輸出尺寸預設',
+    'crop.custom':            '自訂',
+    'crop.customMode':        '自訂模式',
+    'crop.fixWidth':          '固定寬度（保持比例）',
+    'crop.fixHeight':         '固定高度（保持比例）',
+    'crop.customWidth':       '自訂寬度',
+    'crop.customHeight':      '自訂高度',
+    'photo.title':            '照片預校正',
+    'photo.brightness':       '亮度',
+    'photo.contrast':         '對比度',
+    'photo.gamma':            '伽瑪值',
+    'photo.blur':             '模糊 (px)',
+    'dither.title':           '量化／抖動',
+    'dither.algorithm':       '抖動演算法',
+    'dither.off':             '關閉',
+    'dither.strength':        '抖動強度',
+    'output.title':           'PNG 輸出',
+    'output.snsUpscale':      '社群媒體放大',
+    'output.savePng':         '儲存 PNG',
+    'output.saveUpscaled':    '儲存放大版 PNG（供社群媒體使用）',
+    'status.loading':           '載入中…',
+    'status.processing':        '處理中…',
+    'status.unsupported':       '不支援的格式。',
+    'status.loadFailed':        '圖片載入失敗。',
+    'status.processFailed':     '處理失敗。',
+    'status.convertFirst':      '請先轉換圖片。',
+    'placeholder.text':         '上傳圖片以開始',
+  },
+  fr: {
+    'header.subtitle':        'Convertissez photos et illustrations au style Flipnote Studio',
+    'tab.convert':            'Convertir',
+    'drop.main':              'Glissez-déposez une image',
+    'drop.or':                'ou cliquez pour choisir',
+    'drop.formats':           'PNG / JPG / WebP',
+    'toolbar.before':         'Avant',
+    'toolbar.after':          'Après',
+    'settings.title':         'Paramètres',
+    'palette.title':          'Palette',
+    'palette.version':        'Version',
+    'palette.dsi':            'Flipnote Studio (DSi) — 4 couleurs',
+    'palette.3ds':            'Flipnote Studio 3D (3DS) — 6 couleurs',
+    'palette.paper':          'Papier',
+    'palette.whitePaper':     'Papier blanc',
+    'palette.blackPaper':     'Papier noir',
+    'palette.official':       'Couleurs officielles (cliquer pour activer/désactiver)',
+    'palette.extended':       'Couleurs étendues',
+    'palette.offByDefault':   'désactivées par défaut',
+    'palette.extendedNote':   "Ces couleurs ne font pas partie de Flipnote, mais peuvent être débloquées à des fins créatives. Elles sont obtenues en tramant les couleurs officielles entre elles.",
+    'palette.alwaysNote':     'Le noir et le blanc sont toujours actifs. Couleurs issues du vrai fichier ASE de Flipnote.',
+    'patterns.title':         'Motifs Flipnote',
+    'patterns.note':          'Attribuez un motif unique à chaque couleur de la palette. Les couleurs sans motif restent unies.',
+    'patterns.intensity':     'Intensité',
+    'patterns.scale':         'Échelle',
+    'patterns.none':          '— Aucun (uni) —',
+    'patterns.mixWith':       'mélanger avec :',
+    'patterns.auto':          'Auto',
+    'crop.title':             'Recadrage / Redimensionnement',
+    'crop.aspect':            "Format de recadrage",
+    'crop.free':              'Libre',
+    'crop.zoom':              'Zoom',
+    'crop.panX':              'Décalage X',
+    'crop.panY':              'Décalage Y',
+    'crop.outputPreset':      'Format de sortie prédéfini',
+    'crop.custom':            'Personnalisé',
+    'crop.customMode':        'Mode personnalisé',
+    'crop.fixWidth':          'Largeur fixe (conserver le ratio)',
+    'crop.fixHeight':         'Hauteur fixe (conserver le ratio)',
+    'crop.customWidth':       'Largeur personnalisée',
+    'crop.customHeight':      'Hauteur personnalisée',
+    'photo.title':            'Précorrection photo',
+    'photo.brightness':       'Luminosité',
+    'photo.contrast':         'Contraste',
+    'photo.gamma':            'Gamma',
+    'photo.blur':             'Flou (px)',
+    'dither.title':           'Quantification / Tramage',
+    'dither.algorithm':       'Algorithme de tramage',
+    'dither.off':             'DÉSACTIVÉ',
+    'dither.strength':        'Intensité du tramage',
+    'output.title':           'Sortie PNG',
+    'output.snsUpscale':      'Agrandissement réseaux sociaux',
+    'output.savePng':         'Enregistrer le PNG',
+    'output.saveUpscaled':    'Enregistrer le PNG agrandi pour réseaux sociaux',
+    'status.loading':           'Chargement…',
+    'status.processing':        'Traitement…',
+    'status.unsupported':       'Format non pris en charge.',
+    'status.loadFailed':        "Échec du chargement de l'image.",
+    'status.processFailed':     'Échec du traitement.',
+    'status.convertFirst':      "Convertissez d'abord une image.",
+    'placeholder.text':         'Téléversez une image pour commencer',
+  },
+  de: {
+    'header.subtitle':        'Fotos & Illustrationen in den Flipnote-Studio-Stil umwandeln',
+    'tab.convert':            'Konvertieren',
+    'drop.main':              'Bild hierher ziehen',
+    'drop.or':                'oder klicken zum Auswählen',
+    'drop.formats':           'PNG / JPG / WebP',
+    'toolbar.before':         'Vorher',
+    'toolbar.after':          'Nachher',
+    'settings.title':         'Einstellungen',
+    'palette.title':          'Palette',
+    'palette.version':        'Version',
+    'palette.dsi':            'Flipnote Studio (DSi) — 4 Farben',
+    'palette.3ds':            'Flipnote Studio 3D (3DS) — 6 Farben',
+    'palette.paper':          'Papier',
+    'palette.whitePaper':     'Weißes Papier',
+    'palette.blackPaper':     'Schwarzes Papier',
+    'palette.official':       'Offizielle Farben (zum Umschalten klicken)',
+    'palette.extended':       'Erweiterte Farben',
+    'palette.offByDefault':   'standardmäßig deaktiviert',
+    'palette.extendedNote':   'Diese Farben gehören nicht zu Flipnote, können aber für kreative Zwecke freigeschaltet werden. Sie entstehen durch Dithering der offiziellen Farben.',
+    'palette.alwaysNote':     'Schwarz & Weiß sind immer aktiv. Farben stammen aus der echten Flipnote-ASE-Datei.',
+    'patterns.title':         'Flipnote-Muster',
+    'patterns.note':          'Weisen Sie jeder Palettenfarbe unabhängig ein eigenes Muster zu. Farben ohne Muster bleiben einfarbig.',
+    'patterns.intensity':     'Intensität',
+    'patterns.scale':         'Skalierung',
+    'patterns.none':          '— Keins (einfarbig) —',
+    'patterns.mixWith':       'mischen mit:',
+    'patterns.auto':          'Automatisch',
+    'crop.title':             'Zuschneiden / Größe ändern',
+    'crop.aspect':            'Seitenverhältnis',
+    'crop.free':              'Frei',
+    'crop.zoom':              'Zoom',
+    'crop.panX':              'Verschiebung X',
+    'crop.panY':              'Verschiebung Y',
+    'crop.outputPreset':      'Vorgabe für Ausgabegröße',
+    'crop.custom':            'Benutzerdefiniert',
+    'crop.customMode':        'Benutzerdefinierter Modus',
+    'crop.fixWidth':          'Breite fixieren (Verhältnis beibehalten)',
+    'crop.fixHeight':         'Höhe fixieren (Verhältnis beibehalten)',
+    'crop.customWidth':       'Benutzerdefinierte Breite',
+    'crop.customHeight':      'Benutzerdefinierte Höhe',
+    'photo.title':            'Fotokorrektur',
+    'photo.brightness':       'Helligkeit',
+    'photo.contrast':         'Kontrast',
+    'photo.gamma':            'Gamma',
+    'photo.blur':             'Weichzeichnen (px)',
+    'dither.title':           'Quantisierung / Dithering',
+    'dither.algorithm':       'Dithering-Algorithmus',
+    'dither.off':             'AUS',
+    'dither.strength':        'Dithering-Stärke',
+    'output.title':           'PNG-Ausgabe',
+    'output.snsUpscale':      'Hochskalierung für soziale Medien',
+    'output.savePng':         'PNG speichern',
+    'output.saveUpscaled':    'Hochskaliertes PNG für soziale Medien speichern',
+    'status.loading':           'Wird geladen …',
+    'status.processing':        'Wird verarbeitet …',
+    'status.unsupported':       'Nicht unterstütztes Format.',
+    'status.loadFailed':        'Bild konnte nicht geladen werden.',
+    'status.processFailed':     'Verarbeitung fehlgeschlagen.',
+    'status.convertFirst':      'Zuerst ein Bild konvertieren.',
+    'placeholder.text':         'Bild hochladen, um zu beginnen',
+  },
+  vi: {
+    'header.subtitle':        'Chuyển ảnh & tranh minh họa sang phong cách Flipnote Studio',
+    'tab.convert':            'Chuyển đổi',
+    'drop.main':              'Kéo & thả một ảnh',
+    'drop.or':                'hoặc nhấp để chọn',
+    'drop.formats':           'PNG / JPG / WebP',
+    'toolbar.before':         'Trước',
+    'toolbar.after':          'Sau',
+    'settings.title':         'Cài đặt',
+    'palette.title':          'Bảng màu',
+    'palette.version':        'Phiên bản',
+    'palette.dsi':            'Flipnote Studio (DSi) — 4 màu',
+    'palette.3ds':            'Flipnote Studio 3D (3DS) — 6 màu',
+    'palette.paper':          'Giấy',
+    'palette.whitePaper':     'Giấy trắng',
+    'palette.blackPaper':     'Giấy đen',
+    'palette.official':       'Màu chính thức (nhấp để bật/tắt)',
+    'palette.extended':       'Màu mở rộng',
+    'palette.offByDefault':   'tắt theo mặc định',
+    'palette.extendedNote':   'Các màu này không có trong Flipnote nhưng có thể mở khóa để dùng sáng tạo. Chúng được pha bằng cách dithering các màu chính thức với nhau.',
+    'palette.alwaysNote':     'Đen & trắng luôn được bật. Màu lấy từ tệp ASE Flipnote thật.',
+    'patterns.title':         'Họa tiết Flipnote',
+    'patterns.note':          'Gán một họa tiết riêng cho từng màu trong bảng màu. Màu không được gán họa tiết sẽ giữ nguyên là màu đặc.',
+    'patterns.intensity':     'Cường độ',
+    'patterns.scale':         'Tỷ lệ',
+    'patterns.none':          '— Không (màu đặc) —',
+    'patterns.mixWith':       'trộn với:',
+    'patterns.auto':          'Tự động',
+    'crop.title':             'Cắt / Đổi kích thước',
+    'crop.aspect':            'Tỷ lệ cắt',
+    'crop.free':              'Tự do',
+    'crop.zoom':              'Thu phóng',
+    'crop.panX':              'Di chuyển ngang',
+    'crop.panY':              'Di chuyển dọc',
+    'crop.outputPreset':      'Kích thước đầu ra dựng sẵn',
+    'crop.custom':            'Tùy chỉnh',
+    'crop.customMode':        'Chế độ tùy chỉnh',
+    'crop.fixWidth':          'Cố định chiều rộng (giữ tỷ lệ)',
+    'crop.fixHeight':         'Cố định chiều cao (giữ tỷ lệ)',
+    'crop.customWidth':       'Chiều rộng tùy chỉnh',
+    'crop.customHeight':      'Chiều cao tùy chỉnh',
+    'photo.title':            'Hiệu chỉnh ảnh trước',
+    'photo.brightness':       'Độ sáng',
+    'photo.contrast':         'Độ tương phản',
+    'photo.gamma':            'Gamma',
+    'photo.blur':             'Làm mờ (px)',
+    'dither.title':           'Lượng tử hóa / Dithering',
+    'dither.algorithm':       'Thuật toán dithering',
+    'dither.off':             'TẮT',
+    'dither.strength':        'Cường độ dithering',
+    'output.title':           'Xuất PNG',
+    'output.snsUpscale':      'Phóng to cho mạng xã hội',
+    'output.savePng':         'Lưu PNG',
+    'output.saveUpscaled':    'Lưu PNG phóng to cho mạng xã hội',
+    'status.loading':           'Đang tải...',
+    'status.processing':        'Đang xử lý...',
+    'status.unsupported':       'Định dạng không được hỗ trợ.',
+    'status.loadFailed':        'Không thể tải ảnh.',
+    'status.processFailed':     'Xử lý thất bại.',
+    'status.convertFirst':      'Hãy chuyển đổi một ảnh trước.',
+    'placeholder.text':         'Tải ảnh lên để bắt đầu',
   },
 };
 
@@ -2072,18 +1877,18 @@ function applyLang() {
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.dataset.i18n;
     const val = t(key);
-    // Preserve HTML structure — only update text content
+    
     if (el.children.length === 0) {
       el.textContent = val;
     } else {
-      // For elements with children (like <strong>, <span> wrappers), update directly
+      
       el.textContent = val;
     }
   });
-  // Rebuild dynamic UI sections so their strings update too
+  
   buildPaletteToggles();
   buildColorPatternRows();
-  // Re-apply placeholder if no image loaded
+  
   if (!state.imageBitmap) renderPlaceholder();
 }
 
@@ -2092,10 +1897,54 @@ document.getElementById('langSelect').addEventListener('change', e => {
   applyLang();
 });
 
-// ── Init ───────────────────────────────────────────────────────────
 buildPaletteToggles();
 updateReadouts();
 renderPlaceholder();
 </script>
 </body>
 </html>
+<!--⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣤⣼⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⣧⣤⣤⣤⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⣶⣾⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⢻⣶⣦⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⣶⣶⠋⠙⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⢹⣶⡆⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⣿⣿⠀⢈⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⡇⠀⠀⠀
+⠀⠀⠀⠀⢸⣿⠏⠉⠀⢰⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⢸⣶⣿⣾⠀⠀⠀⢸⣿⡇⠀⠀⠀
+⠀⠀⠀⠀⣸⣿⠇⠀⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣟⠀⠀⠀⢹⣿⡇⠀
+⠀⠀⢸⣿⡇⠀⠀⠀⣿⣿⣀⣀⠀⠀⠀⣿⣿⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⡏⠀⢸⣿⡇⠀
+⠀⠀⢸⣿⡇⠀⠀⠀⠿⠿⣿⣿⠀⢀⣀⣿⣿⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⢸⣿⡇⠀
+⠀⠀⢸⣿⡇⠀⣦⣤⠀⠀⣿⣿⣤⣼⣿⣿⣿⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣧⠀⢸⣿⡇⠀
+⠀⠀⢸⣿⡇⠀⣿⣿⣤⣼⣿⣿⣿⣿⣿⣿⣿⠀⠘⠛⢻⣿⣿⣿⣿⣿⠛⠛⠀⢸⣿⡇⠀
+⠀⠀⢸⣿⡇⠀⠉⠉⣿⣿⣿⣿⣿⣿⣿⠉⠉⠀⠀⠀⠈⠉⣿⣿⠉⠉⠀⠀⠀⢸⣿⡇⠀
+⠀⠀⢸⣿⡇⠀⠀⠀⠉⠉⣿⣿⣿⡏⠉⠀⠀⠀⠀⠀⠀⠀⣿⣿⠀⠀⠀⠀⠀⢸⣿⡇⠀
+⠀⠀⠀⠉⢹⣾⠆⠀⠀⠀⠉⠁⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⡀⠀⠀⠀⠀⢸⣿⡇⠀
+⠀⠀⠀⠀⢸⣿⠆⠀⠀⠀⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⡿⠀⢀⣀⣸⣿⡇⠀
+⠀⠀⠀⠀⠸⠿⣆⣀⡀⠘⠿⢿⣿⣇⣀⠀⠀⠀⢀⣀⣀⣀⣿⣿⠿⠿⠀⢸⣿⡇⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⣿⣿⠀⠀⠀⠘⠿⢿⣿⣀⣀⣀⣸⣿⣿⣿⠿⠿⠀⢀⣀⣸⠿⠇⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠛⠛⣤⣤⠀⠀⠀⠘⠛⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⢠⣿⣷⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⣤⣤⣿⡿⠀⠀⠀⠀⠀⠛⠛⣿⣿⣿⡟⠛⠃⠀⣤⣼⠛⠛⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢰⣦⣿⣿⣿⣿⣶⣦⠀⠀⠀⠀⠀⠉⠉⠉⠁⠀⣴⣶⣿⣿⣶⡆⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀
+⠀⠀⢰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠁⠈⠀⠁⠈⠀⠉⠁⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀
+⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀
+⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀
+⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀
+⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀
+⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣇⣀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀
+⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀
+⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀
+⠀⣿⣿⣿⣿⣿⡛⠙⠋⠛⣿⣿⣿⣿⣿⣦⣦⠀⢠⣴⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠄
+⣶⣿⣿⣿⡏⠙⣷⣶⣶⣾⠉⢹⣿⣿⣿⣿⣿⣶⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡅
+⣿⣿⡏⠉⠁⠀⠈⠉⠉⠉⠀⢰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠉⠉⠉⢹⣿⣿⣿⣿⡂
+⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⢨⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠉⠉⠀⠐⣶⣞⠉⢹⣿⣿⡁
+⣿⣿⣇⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⢈⣿⣿⠀⢸⣿⣿⠅
+⣿⣿⣿⣿⣇⣀⣀⣀⣀⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣀⣀⠀⠀⠀⢀⣀⣸⣿⣿⡃
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣀⣀⣀⣸⣿⣿⣿⣿⡁
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡅
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠆
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡃
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡅
+⠉⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡏⠀
+⠀⠈⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀
+⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+DONT LOOK WHERE YOU ARENT SUPPOSED TO LOOK, OR ELSE THE WING DINGER HIMSELF WILL WING YOUR DING!⠀⠀
+-->

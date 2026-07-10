@@ -31,7 +31,21 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>Flipnote Dot Converter</title>
+  <title>Flipnote Converter — Turn Images into Flipnote Studio Art</title>
+  <meta name="description" content="Free browser-based tool that converts photos and illustrations into authentic Flipnote Studio (DSi) and Flipnote Studio 3D style pixel art. Adjust palettes, dithering, patterns, and crop settings, then export as PNG."/>
+  <meta name="keywords" content="flipnote, flipnote studio, flipnote converter, flipnote dsi, pixel art converter, image to flipnote, dithering tool, pixel art generator, nintendo dsi art"/>
+  <meta name="theme-color" content="#ff6300"/>
+  <link rel="icon" type="image/png" href="https://github.com/famikomputa/flipnote-converter/blob/main/images/favicon.png?raw=true"/>
+
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Flipnote Converter"/>
+  <meta property="og:description" content="Convert photos and illustrations into Flipnote Studio style pixel art, right in your browser."/>
+  <meta property="og:image" content="https://github.com/famikomputa/flipnote-converter/blob/main/images/invishorlgoo.png?raw=true"/>
+
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Flipnote Converter"/>
+  <meta name="twitter:description" content="Convert photos and illustrations into Flipnote Studio style pixel art, right in your browser."/>
+  <meta name="twitter:image" content="https://github.com/famikomputa/flipnote-converter/blob/main/images/invishorlgoo.png?raw=true"/>
   <style>
     @font-face {
       font-family: 'FlipnoteTitle';
@@ -67,6 +81,7 @@
     .header-logo img{height:38px;filter:drop-shadow(0 2px 2px rgba(0,0,0,0.5));display:block;}
     .header-logo h1{margin:0;font-size:21px;font-weight:800;line-height:1.2;color:#eaf3ff;text-shadow:0 1px 1px rgba(0,0,0,0.6);font-family:'FlipnoteTitle','Trebuchet MS',sans-serif;}
     .header-logo h1 span{color:#ffe36e;}
+    .header-logo h1 .app-version{font-size:12px;font-weight:600;color:#ffe6d1;opacity:0.75;vertical-align:middle;letter-spacing:0.03em;}
     .header-logo p{margin:2px 0 0;font-size:17px;color:#ffe6d1;text-shadow:0 1px 1px rgba(0,0,0,0.5);}
     .pal-dots{display:flex;gap:4px;margin-left:8px;align-items:center;flex-wrap:wrap;max-width:300px;}
     .pal-dot{width:14px;height:14px;border-radius:3px;border:1px solid rgba(255,255,255,.4);box-shadow:0 1px 2px rgba(0,0,0,.3);}
@@ -156,9 +171,9 @@
 
 <header class="app-header">
   <div class="header-logo">
-    <img src="https://github.com/famikomputa/flipnote-converter/blob/main/images/invishorlgoo.png?raw=true" alt="Flipnote Dot Converter" style="margin-right:10px;">
+    <img src="https://github.com/famikomputa/flipnote-converter/blob/main/images/invishorlgoo.png?raw=true" alt="Flipnote Converter" style="margin-right:10px;">
     <div>
-      <h1>Flipnote <span>Dot</span> Converter 1.0</h1>
+      <h1>Flipnote <span>Converter</span> <small class="app-version">v1.1</small></h1>
       <p data-i18n="header.subtitle">Convert photos &amp; illustrations into Flipnote Studio style</p>
     </div>
   </div>
@@ -189,7 +204,7 @@
     <div id="dropZone" class="drop-zone" role="button" tabindex="0">
       <input id="fileInput" type="file" accept="image/*" hidden/>
       <p><strong data-i18n="drop.main">Drag &amp; drop an image</strong> <span data-i18n="drop.or">or click to choose</span></p>
-      <small data-i18n="drop.formats">PNG / JPG / WebP</small>
+      <small data-i18n="drop.formats">PNG / JPG / WebP / GIF</small>
     </div>
     <div class="toolbar">
       <button id="showBeforeBtn" class="active" data-i18n="toolbar.before">Before</button>
@@ -201,6 +216,16 @@
 
   <section class="card controls-panel">
     <h2 data-i18n="settings.title">Settings</h2>
+
+    <details open>
+      <summary data-i18n="project.title">Project</summary>
+      <div class="note" data-i18n="project.note">Save every setting on this page as a .flpc project file, or load one back in to pick up where you left off.</div>
+      <div class="button-row">
+        <button id="saveProjectBtn" class="btn" data-i18n="project.save">Save Project (.flpc)</button>
+        <button id="loadProjectBtn" class="btn" data-i18n="project.load">Load Project (.flpc)</button>
+        <input id="projectFileInput" type="file" accept=".flpc,application/json" hidden/>
+      </div>
+    </details>
 
     <details open>
       <summary data-i18n="palette.title">Palette</summary>
@@ -348,6 +373,10 @@
         <button id="downloadRawBtn" class="btn" data-i18n="output.savePng">Save PNG</button>
         <button id="downloadScaledBtn" class="btn primary" data-i18n="output.saveUpscaled">Save Upscaled PNG for SNS</button>
       </div>
+      <div id="gifExportRow" class="button-row" style="display:none;">
+        <button id="downloadGifBtn" class="btn primary" data-i18n="output.saveGif">Save Animated GIF</button>
+      </div>
+      <div class="note" id="gifInfoNote" style="display:none;" data-i18n="output.gifDetected">Animated GIF detected — every frame will be converted with the current settings.</div>
     </details>
   </section>
  </main>
@@ -586,6 +615,7 @@ const colorPatternConfig = {};
 const state = {
   imageBitmap:null, outputCanvas:document.createElement('canvas'),
   previewMode:'after', processing:false, pending:false,
+  gif:null,
 };
 
 const $=id=>document.getElementById(id);
@@ -604,6 +634,8 @@ const el={
   brightnessValue:$('brightnessValue'), contrastValue:$('contrastValue'), gammaValue:$('gammaValue'), blurValue:$('blurValue'),
   ditherMode:$('ditherMode'), ditherStrength:$('ditherStrength'), ditherStrengthValue:$('ditherStrengthValue'),
   scalePreset:$('scalePreset'), downloadRawBtn:$('downloadRawBtn'), downloadScaledBtn:$('downloadScaledBtn'),
+  saveProjectBtn:$('saveProjectBtn'), loadProjectBtn:$('loadProjectBtn'), projectFileInput:$('projectFileInput'),
+  gifExportRow:$('gifExportRow'), downloadGifBtn:$('downloadGifBtn'), gifInfoNote:$('gifInfoNote'),
 };
 
 const previewCtx = el.previewCanvas.getContext('2d',{willReadFrequently:true});
@@ -663,7 +695,7 @@ function buildPaletteToggles() {
     sw.className = 'pal-swatch' + (enabledOfficial[ver][c.id] ? ' active' : '') + (c.always ? ' always-on' : '');
     sw.style.background = c.hex;
     if (c.id === 'white') sw.style.borderColor = '#666';
-    sw.title = `${c.label} ${c.hex}`;
+    sw.title = `${t('color.'+c.id)} ${c.hex}`;
     if (!c.always) {
       sw.addEventListener('click', () => {
         enabledOfficial[ver][c.id] = !enabledOfficial[ver][c.id];
@@ -673,7 +705,7 @@ function buildPaletteToggles() {
       });
     }
     const lbl = document.createElement('div');
-    lbl.className = 'swatch-label'; lbl.textContent = c.label;
+    lbl.className = 'swatch-label'; lbl.textContent = t('color.'+c.id);
     wrap.append(sw, lbl);
     el.palTogglesOfficial.appendChild(wrap);
   });
@@ -684,7 +716,7 @@ function buildPaletteToggles() {
     const sw = document.createElement('div');
     sw.className = 'pal-swatch' + (enabledExtra[c.id] ? ' active' : '');
     sw.style.background = c.hex;
-    sw.title = `${c.label} — ${c.note}`;
+    sw.title = `${t('color.'+c.id)} — ${c.note}`;
     sw.addEventListener('click', () => {
       enabledExtra[c.id] = !enabledExtra[c.id];
       sw.classList.toggle('active', enabledExtra[c.id]);
@@ -693,7 +725,7 @@ function buildPaletteToggles() {
       if (state.imageBitmap) debouncedProcess();
     });
     const lbl = document.createElement('div');
-    lbl.className = 'swatch-label'; lbl.textContent = c.label;
+    lbl.className = 'swatch-label'; lbl.textContent = t('color.'+c.id);
     wrap.append(sw, lbl);
     el.palTogglesExtra.appendChild(wrap);
   });
@@ -708,7 +740,7 @@ function updateHeaderDots() {
     const d = document.createElement('div');
     d.className = 'pal-dot'; d.style.background = c.hex;
     if (c.id === 'white') d.style.borderColor = '#666';
-    d.title = c.label;
+    d.title = t('color.'+c.id);
     el.headerPalDots.appendChild(d);
   });
 }
@@ -735,7 +767,7 @@ function buildColorPatternRows() {
     
     const label = document.createElement('div');
     label.className = 'color-pat-label';
-    label.textContent = color.label;
+    label.textContent = t('color.'+color.id);
 
     
     const patSelect = document.createElement('select');
@@ -747,7 +779,7 @@ function buildColorPatternRows() {
     PATTERN_DEFS.forEach(pat => {
       const opt = document.createElement('option');
       opt.value = pat.id;
-      opt.textContent = pat.label;
+      opt.textContent = t('pattern.'+pat.id);
       patSelect.appendChild(opt);
     });
     patSelect.value = colorPatternConfig[color.id].pattern;
@@ -803,7 +835,7 @@ function buildColorPatternRows() {
       if (c.id === color.id) return; 
       const opt = document.createElement('option');
       opt.value = c.id;
-      opt.textContent = c.label;
+      opt.textContent = t('color.'+c.id);
       altSelect.appendChild(opt);
     });
     altSelect.value = colorPatternConfig[color.id].altColor;
@@ -861,15 +893,45 @@ el.showBeforeBtn.addEventListener('click', () => { state.previewMode='before'; e
 el.showAfterBtn.addEventListener('click',  () => { state.previewMode='after';  el.showAfterBtn.classList.add('active');  el.showBeforeBtn.classList.remove('active'); drawPreview(); });
 el.downloadRawBtn.addEventListener('click', downloadRaw);
 el.downloadScaledBtn.addEventListener('click', downloadScaled);
+el.downloadGifBtn.addEventListener('click', downloadAnimatedGif);
+
+el.saveProjectBtn.addEventListener('click', saveProject);
+el.loadProjectBtn.addEventListener('click', () => el.projectFileInput.click());
+el.projectFileInput.addEventListener('change', e => {
+  const f = e.target.files?.[0];
+  if (f) loadProjectFile(f);
+  e.target.value = '';
+});
+
+const GIF_FEATURE_ENABLED = true;
 
 async function loadFile(file) {
-  if (!file.type.startsWith('image/')) { setStatus(t('status.unsupported'), true); return; }
+  const isGif = file.type === 'image/gif' || /\.gif$/i.test(file.name || '');
+  if (!isGif && !file.type.startsWith('image/')) { setStatus(t('status.unsupported'), true); return; }
   try {
     setStatus(t('status.loading'));
-    let bmp;
-    try { bmp = await createImageBitmap(file, { imageOrientation:'from-image' }); }
-    catch { bmp = await loadImageFallback(file); }
-    state.imageBitmap = downscaleIfNeeded(bmp, MAX_EDGE);
+
+    if (isGif && GIF_FEATURE_ENABLED) {
+      const buf = await file.arrayBuffer();
+      const gif = decodeGIF(buf);
+      if (!gif || !gif.frames.length) throw new Error('Could not decode GIF');
+      state.gif = gif;
+      state.imageBitmap = downscaleIfNeeded(gif.frames[0].canvas, MAX_EDGE);
+      el.gifExportRow.style.display = 'flex';
+      el.gifInfoNote.style.display = 'block';
+    } else if (isGif && !GIF_FEATURE_ENABLED) {
+      setStatus('Animated GIF support is coming soon — please use a static image for now.', true);
+      return;
+    } else {
+      state.gif = null;
+      el.gifExportRow.style.display = 'none';
+      el.gifInfoNote.style.display = 'none';
+      let bmp;
+      try { bmp = await createImageBitmap(file, { imageOrientation:'from-image' }); }
+      catch { bmp = await loadImageFallback(file); }
+      state.imageBitmap = downscaleIfNeeded(bmp, MAX_EDGE);
+    }
+
     scanExtraColorsInImage();
     processImagePipeline();
   } catch(err) { console.error(err); setStatus(t('status.loadFailed'), true); }
@@ -899,6 +961,27 @@ function loadImageFallback(file) {
   });
 }
 
+function renderFrameToCanvas(sourceBitmap, outW, outH) {
+  const cropRect = getCropRect(sourceBitmap.width, sourceBitmap.height, outW/outH);
+
+  const work = document.createElement('canvas');
+  work.width=outW; work.height=outH;
+  const wctx = work.getContext('2d',{willReadFrequently:true});
+  wctx.imageSmoothingEnabled = true;
+  wctx.filter = `blur(${(+el.blur.value).toFixed(2)}px)`;
+  wctx.drawImage(sourceBitmap, cropRect.x, cropRect.y, cropRect.w, cropRect.h, 0, 0, outW, outH);
+  wctx.filter = 'none';
+
+  const imgData = wctx.getImageData(0, 0, outW, outH);
+  applyAdjustments(imgData, +el.brightness.value, +el.contrast.value, +el.gamma.value);
+  applyDitherAndQuantize(imgData, el.ditherMode.value, +el.ditherStrength.value/100);
+  enforcePaletteSafety(imgData);
+  applyPerColorPatterns(imgData);
+
+  wctx.putImageData(imgData, 0, 0);
+  return work;
+}
+
 function processImagePipeline() {
   if (!state.imageBitmap || state.processing) { state.pending=true; return; }
   state.processing = true;
@@ -907,25 +990,7 @@ function processImagePipeline() {
   requestAnimationFrame(() => {
     try {
       const [outW, outH] = getOutputSize();
-      const cropRect = getCropRect(state.imageBitmap.width, state.imageBitmap.height, outW/outH);
-
-      const work = document.createElement('canvas');
-      work.width=outW; work.height=outH;
-      const wctx = work.getContext('2d',{willReadFrequently:true});
-      wctx.imageSmoothingEnabled = true;
-      wctx.filter = `blur(${(+el.blur.value).toFixed(2)}px)`;
-      wctx.drawImage(state.imageBitmap, cropRect.x, cropRect.y, cropRect.w, cropRect.h, 0, 0, outW, outH);
-      wctx.filter = 'none';
-
-      const imgData = wctx.getImageData(0, 0, outW, outH);
-      applyAdjustments(imgData, +el.brightness.value, +el.contrast.value, +el.gamma.value);
-      applyDitherAndQuantize(imgData, el.ditherMode.value, +el.ditherStrength.value/100);
-      enforcePaletteSafety(imgData);
-
-      
-      applyPerColorPatterns(imgData);
-
-      wctx.putImageData(imgData, 0, 0);
+      const work = renderFrameToCanvas(state.imageBitmap, outW, outH);
 
       state.outputCanvas.width=outW; state.outputCanvas.height=outH;
       const octx = state.outputCanvas.getContext('2d');
@@ -1190,6 +1255,220 @@ function dlBlob(blob,name) {
   URL.revokeObjectURL(url);
 }
 
+function downloadAnimatedGif() {
+  if (!state.gif) { setStatus(t('status.convertFirst'), true); return; }
+  setStatus(t('status.processing'));
+
+  requestAnimationFrame(() => {
+    try {
+      const [outW, outH] = getOutputSize();
+      const scale = +el.scalePreset.value;
+      const finalW = outW*scale, finalH = outH*scale;
+
+      
+      const pal = getActivePalette();
+      const paletteRGB = pal.map(c => c.rgb);
+
+      const frames = state.gif.frames.map(f => {
+        const processed = renderFrameToCanvas(f.canvas, outW, outH);
+        const up = document.createElement('canvas');
+        up.width = finalW; up.height = finalH;
+        const uctx = up.getContext('2d'); uctx.imageSmoothingEnabled = false;
+        uctx.drawImage(processed, 0, 0, finalW, finalH);
+        const { data } = uctx.getImageData(0, 0, finalW, finalH);
+        const indices = new Uint8Array(finalW*finalH);
+        for (let i=0, p=0; i<data.length; i+=4, p++) {
+          const r=data[i], g=data[i+1], b=data[i+2];
+          let minD=Infinity, best=0;
+          for (let k=0;k<paletteRGB.length;k++) {
+            const pr=paletteRGB[k][0], pg=paletteRGB[k][1], pb=paletteRGB[k][2];
+            const d=(r-pr)**2+(g-pg)**2+(b-pb)**2;
+            if (d<minD) { minD=d; best=k; }
+          }
+          indices[p] = best;
+        }
+        
+        const delayCs = Math.max(2, Math.round((f.delay||100)/10));
+        return { indices, delayCs };
+      });
+
+      const blob = encodeGIF({ width:finalW, height:finalH, palette:paletteRGB, frames, loopCount:0 });
+      dlBlob(blob, `flipnote_${finalW}x${finalH}.gif`);
+      setStatus(`Done — ${finalW}×${finalH} GIF`);
+    } catch(err) {
+      console.error(err); setStatus(t('status.processFailed'), true);
+    }
+  });
+}
+
+function canvasFromBitmap(bmp) {
+  const c = document.createElement('canvas');
+  c.width = bmp.width; c.height = bmp.height;
+  c.getContext('2d').drawImage(bmp, 0, 0);
+  return c;
+}
+
+function dataURLToImage(url) {
+  return new Promise((res, rej) => {
+    const img = new Image();
+    img.onload = () => res(img);
+    img.onerror = rej;
+    img.src = url;
+  });
+}
+
+async function saveProject() {
+  try {
+    const snapshot = getSettingsSnapshot();
+    const payload = { flpc:true, appVersion:2, settings:snapshot };
+
+    if (state.gif) {
+      
+      payload.gif = {
+        width: state.gif.width,
+        height: state.gif.height,
+        loopCount: state.gif.loopCount,
+        frames: state.gif.frames.map(f => ({
+          delay: f.delay,
+          dataURL: canvasFromBitmap(f.canvas).toDataURL('image/png'),
+        })),
+      };
+    } else if (state.imageBitmap) {
+      
+      payload.image = { dataURL: canvasFromBitmap(state.imageBitmap).toDataURL('image/png') };
+    }
+
+    const blob = new Blob([JSON.stringify(payload)], { type:'application/json' });
+    dlBlob(blob, 'project.flpc');
+  } catch(err) { console.error(err); setStatus('Could not save project file.', true); }
+}
+
+function loadProjectFile(file) {
+  const reader = new FileReader();
+  reader.onload = async () => {
+    try {
+      const data = JSON.parse(reader.result);
+      if (!data || !data.settings) throw new Error('Invalid .flpc file');
+      applySettingsSnapshot(data.settings);
+
+      if (data.gif && Array.isArray(data.gif.frames) && data.gif.frames.length) {
+        const frames = [];
+        for (const f of data.gif.frames) {
+          const img = await dataURLToImage(f.dataURL);
+          const c = document.createElement('canvas');
+          c.width = img.naturalWidth; c.height = img.naturalHeight;
+          c.getContext('2d').drawImage(img, 0, 0);
+          frames.push({ canvas:c, delay:f.delay });
+        }
+        state.gif = { width:data.gif.width, height:data.gif.height, loopCount:data.gif.loopCount||0, frames };
+        state.imageBitmap = downscaleIfNeeded(frames[0].canvas, MAX_EDGE);
+        el.gifExportRow.style.display = 'flex';
+        el.gifInfoNote.style.display = 'block';
+      } else if (data.image && data.image.dataURL) {
+        const img = await dataURLToImage(data.image.dataURL);
+        state.gif = null;
+        el.gifExportRow.style.display = 'none';
+        el.gifInfoNote.style.display = 'none';
+        state.imageBitmap = downscaleIfNeeded(img, MAX_EDGE);
+      }
+
+      if (state.imageBitmap) {
+        scanExtraColorsInImage();
+        processImagePipeline();
+      }
+
+      setStatus('Project loaded.');
+    } catch(err) {
+      console.error(err); setStatus('Failed to load project file.', true);
+    }
+  };
+  reader.onerror = () => setStatus('Failed to read project file.', true);
+  reader.readAsText(file);
+}
+
+function getSettingsSnapshot() {
+  return {
+    lang: currentLang,
+    palVersion: el.palVersion.value,
+    palPaper: el.palPaper.value,
+    enabledOfficial: JSON.parse(JSON.stringify(enabledOfficial)),
+    enabledExtra: JSON.parse(JSON.stringify(enabledExtra)),
+    colorPatternConfig: JSON.parse(JSON.stringify(colorPatternConfig)),
+    patIntensity: el.patIntensity.value,
+    patScale: el.patScale.value,
+    cropPreset: el.cropPreset.value,
+    zoom: el.zoom.value,
+    panX: el.panX.value,
+    panY: el.panY.value,
+    sizePreset: el.sizePreset.value,
+    customMode: el.customMode.value,
+    customWidth: el.customWidth.value,
+    customHeight: el.customHeight.value,
+    brightness: el.brightness.value,
+    contrast: el.contrast.value,
+    gamma: el.gamma.value,
+    blur: el.blur.value,
+    ditherMode: el.ditherMode.value,
+    ditherStrength: el.ditherStrength.value,
+    scalePreset: el.scalePreset.value,
+  };
+}
+
+function setSelectIfValid(selectEl, value) {
+  if (value === undefined || value === null) return;
+  if ([...selectEl.options].some(o => o.value === String(value))) selectEl.value = value;
+}
+
+function applySettingsSnapshot(s) {
+  if (!s) return;
+
+  
+  if (s.enabledOfficial) {
+    Object.keys(enabledOfficial).forEach(ver => {
+      if (s.enabledOfficial[ver]) Object.assign(enabledOfficial[ver], s.enabledOfficial[ver]);
+    });
+  }
+  if (s.enabledExtra) Object.assign(enabledExtra, s.enabledExtra);
+  if (s.colorPatternConfig) {
+    Object.keys(colorPatternConfig).forEach(k => delete colorPatternConfig[k]);
+    Object.assign(colorPatternConfig, s.colorPatternConfig);
+  }
+
+  setSelectIfValid(el.palVersion, s.palVersion);
+  setSelectIfValid(el.palPaper, s.palPaper);
+  setSelectIfValid(el.cropPreset, s.cropPreset);
+  setSelectIfValid(el.sizePreset, s.sizePreset);
+  setSelectIfValid(el.customMode, s.customMode);
+  setSelectIfValid(el.ditherMode, s.ditherMode);
+  setSelectIfValid(el.scalePreset, s.scalePreset);
+
+  if (s.patIntensity!==undefined) el.patIntensity.value = s.patIntensity;
+  if (s.patScale!==undefined) el.patScale.value = s.patScale;
+  if (s.zoom!==undefined) el.zoom.value = s.zoom;
+  if (s.panX!==undefined) el.panX.value = s.panX;
+  if (s.panY!==undefined) el.panY.value = s.panY;
+  if (s.customWidth!==undefined) el.customWidth.value = s.customWidth;
+  if (s.customHeight!==undefined) el.customHeight.value = s.customHeight;
+  if (s.brightness!==undefined) el.brightness.value = s.brightness;
+  if (s.contrast!==undefined) el.contrast.value = s.contrast;
+  if (s.gamma!==undefined) el.gamma.value = s.gamma;
+  if (s.blur!==undefined) el.blur.value = s.blur;
+  if (s.ditherStrength!==undefined) el.ditherStrength.value = s.ditherStrength;
+
+  if (s.lang) {
+    currentLang = s.lang;
+    const langSelect = document.getElementById('langSelect');
+    setSelectIfValid(langSelect, s.lang);
+  }
+
+  
+  buildPaletteToggles();
+  applyLang();
+  updateReadouts();
+
+  if (state.imageBitmap) debouncedProcess();
+}
+
 function getOutputSize() {
   if (el.sizePreset.value!=='custom') return parsePresetSize(el.sizePreset.value);
   const mode=el.customMode.value;
@@ -1243,8 +1522,364 @@ function clamp(v,mn,mx){return Math.max(mn,Math.min(mx,v));}
 function debounce(fn,ms){let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),ms);};}
 function setStatus(msg,isError=false){el.statusText.textContent=msg;el.statusText.style.color=isError?'#fe1010':'#7a7a90';}
 
+
+/*
+  ============================================================================
+  Animated GIF import/export.
+
+  decodeGIF() handles container parsing + disposal-method compositing.
+
+  lzwEncodeGIF()/lzwDecodeGIF() use standard variable-width LZW (code size
+  grows from minCodeSize+1 up to 12 bits, dictionary resets with a clear
+  code at 4096 entries). The earlier bug here was NOT the container framing
+  — it was that the encoder checked "should I grow codeSize?" using the
+  dictionary-entry count *after* inserting the current entry, while the
+  decoder implicitly expects that check to use the count from *before* the
+  entry tied to the code it just emitted was added. Concretely: the encoder
+  must check growth using nextCode's value prior to this iteration's
+  dictionary insertion, then insert; the decoder checks growth using
+  nextCode's value after its insertion. Getting these on the same footing
+  is what keeps the bit-width transitions lined up between the two sides.
+  Verified against real Pillow-produced GIFs and with randomized multi-frame
+  stress tests (varying dimensions, palette sizes, and frame counts).
+  ============================================================================
+*/
+function decodeGIF(arrayBuffer) {
+  const data = new Uint8Array(arrayBuffer);
+  let pos = 0;
+  const readByte = () => data[pos++];
+  const readU16 = () => { const v = data[pos] | (data[pos+1]<<8); pos+=2; return v; };
+
+  
+  pos = 6;
+  const width = readU16(), height = readU16();
+  const packed = readByte();
+  const gctFlag = (packed & 0x80) !== 0;
+  const gctSize = 2 << (packed & 0x07);
+  pos += 2; 
+  let gct = null;
+  if (gctFlag) {
+    gct = [];
+    for (let i=0;i<gctSize;i++) gct.push([readByte(),readByte(),readByte()]);
+  }
+
+  let loopCount = 0;
+  let transparentIndex = -1, disposalMethod = 0, delayTime = 10;
+  const frames = [];
+  
+  const master = document.createElement('canvas');
+  master.width = width; master.height = height;
+  const mctx = master.getContext('2d', { willReadFrequently:true });
+  let prevSnapshot = null; 
+
+  function skipSubBlocks() {
+    let size;
+    while ((size = readByte()) !== 0) pos += size;
+  }
+  function readSubBlocks() {
+    const chunks = [];
+    let size, total = 0;
+    while ((size = readByte()) !== 0) { chunks.push(data.subarray(pos, pos+size)); pos += size; total += size; }
+    const out = new Uint8Array(total);
+    let o = 0;
+    for (const c of chunks) { out.set(c, o); o += c.length; }
+    return out;
+  }
+
+  while (pos < data.length) {
+    const introducer = readByte();
+    if (introducer === 0x21) { 
+      const label = readByte();
+      if (label === 0xF9) { 
+        readByte(); 
+        const p = readByte();
+        disposalMethod = (p >> 2) & 0x07;
+        const hasTransparency = (p & 0x01) !== 0;
+        delayTime = readU16();
+        const tByte = readByte();
+        transparentIndex = hasTransparency ? tByte : -1;
+        readByte(); 
+      } else if (label === 0xFF) { 
+        const blockSize = readByte();
+        const appId = data.subarray(pos, pos+11); pos += 11;
+        const sub1 = readByte(); 
+        if (sub1 === 3) {
+          readByte(); 
+          loopCount = readU16();
+          readByte(); 
+        } else {
+          pos += sub1;
+          skipSubBlocks();
+        }
+      } else {
+        skipSubBlocks();
+      }
+    } else if (introducer === 0x2C) { 
+      const left = readU16(), top = readU16();
+      const fw = readU16(), fh = readU16();
+      const fpacked = readByte();
+      const lctFlag = (fpacked & 0x80) !== 0;
+      const interlaced = (fpacked & 0x40) !== 0;
+      const lctSize = 2 << (fpacked & 0x07);
+      let lct = gct;
+      if (lctFlag) {
+        lct = [];
+        for (let i=0;i<lctSize;i++) lct.push([readByte(),readByte(),readByte()]);
+      }
+      const minCodeSize = readByte();
+      const compressed = readSubBlocks();
+      const indices = lzwDecodeGIF(minCodeSize, compressed, fw*fh);
+
+      
+      const frameCanvas = document.createElement('canvas');
+      frameCanvas.width = fw; frameCanvas.height = fh;
+      const fctx = frameCanvas.getContext('2d');
+      const fImgData = fctx.createImageData(fw, fh);
+      const fdata = fImgData.data;
+      let srcIdx = 0;
+      const rows = [];
+      if (interlaced) {
+        
+        const passStarts=[0,4,2,1], passSteps=[8,8,4,2];
+        let rowOrder = [];
+        for (let pi=0; pi<4; pi++) for (let y=passStarts[pi]; y<fh; y+=passSteps[pi]) rowOrder.push(y);
+        for (const y of rowOrder) rows[y] = indices.subarray(srcIdx, srcIdx+fw), srcIdx+=fw;
+      } else {
+        for (let y=0;y<fh;y++) rows[y] = indices.subarray(y*fw,(y+1)*fw);
+      }
+      for (let y=0;y<fh;y++) {
+        const row = rows[y];
+        for (let x=0;x<fw;x++) {
+          const ci = row[x];
+          const o = (y*fw+x)*4;
+          if (ci === transparentIndex) { fdata[o+3]=0; continue; }
+          const rgb = lct[ci] || [0,0,0];
+          fdata[o]=rgb[0]; fdata[o+1]=rgb[1]; fdata[o+2]=rgb[2]; fdata[o+3]=255;
+        }
+      }
+      fctx.putImageData(fImgData, 0, 0);
+
+      
+      if (prevSnapshot) mctx.putImageData(prevSnapshot, 0, 0);
+      else { mctx.clearRect(0,0,width,height); }
+
+      const snapshotBeforeDraw = disposalMethod===3 ? mctx.getImageData(0,0,width,height) : null;
+
+      mctx.drawImage(frameCanvas, left, top);
+
+      const outCanvas = document.createElement('canvas');
+      outCanvas.width = width; outCanvas.height = height;
+      outCanvas.getContext('2d').drawImage(master, 0, 0);
+      frames.push({ canvas: outCanvas, delay: Math.max(20, delayTime*10) });
+
+      if (disposalMethod === 2) {
+        
+        mctx.clearRect(left, top, fw, fh);
+        prevSnapshot = mctx.getImageData(0,0,width,height);
+      } else if (disposalMethod === 3) {
+        prevSnapshot = snapshotBeforeDraw;
+      } else {
+        prevSnapshot = mctx.getImageData(0,0,width,height);
+      }
+
+      
+      transparentIndex = -1; disposalMethod = 0;
+    } else if (introducer === 0x3B) { 
+      break;
+    } else {
+      break;
+    }
+  }
+
+  return { width, height, loopCount, frames };
+}
+
+function lzwDecodeGIF(minCodeSize, bytes, expectedLength) {
+  
+  const clearCode = 1 << minCodeSize;
+  const eoiCode = clearCode + 1;
+  let codeSize = minCodeSize + 1;
+  const output = new Uint8Array(expectedLength);
+  let outPos = 0;
+
+  let dict, nextCode;
+  function resetDict() {
+    dict = [];
+    for (let i=0;i<clearCode;i++) dict[i] = [i];
+    dict[clearCode] = []; dict[eoiCode] = [];
+    codeSize = minCodeSize + 1;
+    nextCode = eoiCode+1;
+  }
+  resetDict();
+
+  let bitBuffer = 0, bitsInBuffer = 0, bytePos = 0;
+  function readCode() {
+    while (bitsInBuffer < codeSize) {
+      if (bytePos >= bytes.length) return eoiCode;
+      bitBuffer |= bytes[bytePos++] << bitsInBuffer;
+      bitsInBuffer += 8;
+    }
+    const code = bitBuffer & ((1<<codeSize)-1);
+    bitBuffer >>= codeSize; bitsInBuffer -= codeSize;
+    return code;
+  }
+
+  let prev = null;
+  while (outPos < expectedLength) {
+    const code = readCode();
+    if (code === clearCode) { resetDict(); prev = null; continue; }
+    if (code === eoiCode) break;
+
+    let entry;
+    if (code < dict.length && dict[code]) entry = dict[code];
+    else if (code === nextCode && prev) entry = prev.concat(prev[0]);
+    else break;
+
+    for (let i=0;i<entry.length && outPos<expectedLength;i++) output[outPos++] = entry[i];
+
+    
+    if (prev && nextCode < 4096) {
+      dict[nextCode] = prev.concat(entry[0]);
+      nextCode++;
+      if (nextCode === (1<<codeSize) && codeSize < 12) codeSize++;
+    }
+    prev = entry;
+  }
+  return output;
+}
+
+function encodeGIF({ width, height, palette, frames, loopCount }) {
+  
+  const pal = palette.slice(0, 256);
+  let gctSizeExp = 0;
+  while ((2 << gctSizeExp) < pal.length && gctSizeExp < 7) gctSizeExp++;
+  const gctLen = 2 << gctSizeExp;
+  const paddedPal = pal.concat(Array(Math.max(0, gctLen - pal.length)).fill([0,0,0]));
+  const minCodeSize = Math.max(2, gctSizeExp + 1);
+
+  const bytes = [];
+  const pushByte = b => bytes.push(b & 0xFF);
+  const pushU16 = v => { bytes.push(v & 0xFF, (v>>8) & 0xFF); };
+  const pushStr = s => { for (let i=0;i<s.length;i++) bytes.push(s.charCodeAt(i)); };
+
+  
+  pushStr('GIF89a');
+  pushU16(width); pushU16(height);
+  pushByte(0x80 | gctSizeExp); 
+  pushByte(0); pushByte(0); 
+  paddedPal.forEach(c => { pushByte(c[0]); pushByte(c[1]); pushByte(c[2]); });
+
+  
+  pushByte(0x21); pushByte(0xFF); pushByte(0x0B);
+  pushStr('NETSCAPE2.0');
+  pushByte(0x03); pushByte(0x01); pushU16(loopCount||0); pushByte(0x00);
+
+  frames.forEach(f => {
+    
+    pushByte(0x21); pushByte(0xF9); pushByte(0x04);
+    pushByte(0x04); 
+    pushU16(f.delayCs||10);
+    pushByte(0x00); 
+    pushByte(0x00);
+
+    
+    pushByte(0x2C);
+    pushU16(0); pushU16(0); pushU16(width); pushU16(height);
+    pushByte(0x00); 
+
+    pushByte(minCodeSize);
+    const compressed = lzwEncodeGIF(minCodeSize, f.indices);
+    for (let i=0;i<compressed.length;i+=255) {
+      const chunk = compressed.subarray(i, Math.min(i+255, compressed.length));
+      pushByte(chunk.length);
+      for (let j=0;j<chunk.length;j++) pushByte(chunk[j]);
+    }
+    pushByte(0x00); 
+  });
+
+  pushByte(0x3B); 
+
+  return new Blob([new Uint8Array(bytes)], { type:'image/gif' });
+}
+
+function lzwEncodeGIF(minCodeSize, indices) {
+  
+  const clearCode = 1 << minCodeSize;
+  const eoiCode = clearCode + 1;
+  let codeSize = minCodeSize + 1;
+  const out = [];
+  let bitBuffer = 0, bitCount = 0;
+
+  function writeCode(code) {
+    bitBuffer |= code << bitCount;
+    bitCount += codeSize;
+    while (bitCount >= 8) { out.push(bitBuffer & 0xFF); bitBuffer >>= 8; bitCount -= 8; }
+  }
+
+  let dict, nextCode;
+  function resetDict() {
+    dict = new Map();
+    for (let i=0;i<clearCode;i++) dict.set(String.fromCharCode(i), i);
+    codeSize = minCodeSize + 1;
+    nextCode = eoiCode+1;
+  }
+  resetDict();
+  writeCode(clearCode);
+
+  let w = '';
+  for (let i=0;i<indices.length;i++) {
+    const k = String.fromCharCode(indices[i]);
+    const wk = w+k;
+    if (dict.has(wk)) { w = wk; continue; }
+    writeCode(dict.get(w));
+    
+    if (nextCode === (1 << codeSize) && codeSize < 12) codeSize++;
+    if (nextCode < 4096) {
+      dict.set(wk, nextCode);
+      nextCode++;
+    } else {
+      writeCode(clearCode);
+      resetDict();
+    }
+    w = k;
+  }
+  if (w !== '') writeCode(dict.get(w));
+  writeCode(eoiCode);
+  if (bitCount > 0) { out.push(bitBuffer & 0xFF); }
+
+  return new Uint8Array(out);
+}
+
 const TRANSLATIONS = {
   en: {
+    'color.black':              'Black',
+    'color.white':              'White',
+    'color.red':                'Red',
+    'color.blue':               'Blue',
+    'color.green':              'Green',
+    'color.yellow':             'Yellow',
+    'color.purple':             'Purple',
+    'color.orange':             'Orange',
+    'color.pink':               'Pink',
+    'color.teal':               'Teal',
+    'color.lime':               'Lime',
+    'color.navy':               'Navy',
+    'color.brown':              'Brown',
+    'color.gray':               'Gray',
+    'color.lightblue':          'Lt. Blue',
+    'color.darkgreen':          'Dk. Green',
+    'pattern.checker50':        'Checker 50%',
+    'pattern.checker25':        'Checker 25%',
+    'pattern.checker75':        'Checker 75%',
+    'pattern.hstripes':         'H-Stripes',
+    'pattern.vstripes':         'V-Stripes',
+    'pattern.hstripes_thin':    'H-Stripes Thin',
+    'pattern.vstripes_thin':    'V-Stripes Thin',
+    'pattern.dots_sparse':      'Dots Sparse',
+    'pattern.dots_medium':      'Dots Medium',
+    'pattern.crosshatch':       'Crosshatch',
+    'pattern.diagonal':         'Diagonal',
+    'pattern.diagonal_rev':     'Diagonal Rev',
     'header.subtitle':        'Convert photos & illustrations into Flipnote Studio style',
     'tab.convert':            'Convert',
     'drop.main':              'Drag & drop an image',
@@ -1253,6 +1888,12 @@ const TRANSLATIONS = {
     'toolbar.before':         'Before',
     'toolbar.after':          'After',
     'settings.title':         'Settings',
+    'project.title':          'Project',
+    'project.note':           'Save every setting on this page as a .flpc project file, or load one back in to pick up where you left off.',
+    'project.save':           'Save Project (.flpc)',
+    'project.load':           'Load Project (.flpc)',
+    'output.saveGif':         'Save Animated GIF',
+    'output.gifDetected':     'Animated GIF detected — every frame will be converted with the current settings.',
     'palette.title':          'Palette',
     'palette.version':        'Version',
     'palette.dsi':            'Flipnote Studio (DSi) — 4 colors',
@@ -1307,6 +1948,40 @@ const TRANSLATIONS = {
     'placeholder.text':         'Upload an image to begin',
   },
   ru: {
+    'color.black':              'Чёрный',
+    'color.white':              'Белый',
+    'color.red':                'Красный',
+    'color.blue':               'Синий',
+    'color.green':              'Зелёный',
+    'color.yellow':             'Жёлтый',
+    'color.purple':             'Фиолетовый',
+    'color.orange':             'Оранжевый',
+    'color.pink':               'Розовый',
+    'color.teal':               'Бирюзовый',
+    'color.lime':               'Лайм',
+    'color.navy':               'Тёмно-синий',
+    'color.brown':              'Коричневый',
+    'color.gray':               'Серый',
+    'color.lightblue':          'Голубой',
+    'color.darkgreen':          'Тёмно-зелёный',
+    'pattern.checker50':        'Шахматка 50%',
+    'pattern.checker25':        'Шахматка 25%',
+    'pattern.checker75':        'Шахматка 75%',
+    'pattern.hstripes':         'Гориз. полосы',
+    'pattern.vstripes':         'Верт. полосы',
+    'pattern.hstripes_thin':    'Гориз. полосы (тонкие)',
+    'pattern.vstripes_thin':    'Верт. полосы (тонкие)',
+    'pattern.dots_sparse':      'Редкие точки',
+    'pattern.dots_medium':      'Средние точки',
+    'pattern.crosshatch':       'Штриховка',
+    'pattern.diagonal':         'Диагональ',
+    'pattern.diagonal_rev':     'Диагональ (обратная)',
+    'project.title':            'Проект',
+    'project.note':             'Сохраните все настройки этой страницы в файл проекта .flpc или загрузите его обратно, чтобы продолжить с того места, где остановились.',
+    'project.save':             'Сохранить проект (.flpc)',
+    'project.load':             'Загрузить проект (.flpc)',
+    'output.saveGif':           'Сохранить анимированный GIF',
+    'output.gifDetected':       'Обнаружен анимированный GIF — каждый кадр будет преобразован с текущими настройками.',
     'header.subtitle':        'Преобразуйте фото и иллюстрации в стиль Flipnote Studio',
     'tab.convert':            'Конвертировать',
     'drop.main':              'Перетащите изображение сюда',
@@ -1369,6 +2044,40 @@ const TRANSLATIONS = {
     'placeholder.text':         'Загрузите изображение, чтобы начать',
   },
   ja: {
+    'color.black':              '黒',
+    'color.white':              '白',
+    'color.red':                '赤',
+    'color.blue':               '青',
+    'color.green':              '緑',
+    'color.yellow':             '黄',
+    'color.purple':             '紫',
+    'color.orange':             'オレンジ',
+    'color.pink':               'ピンク',
+    'color.teal':               'ティール',
+    'color.lime':               'ライム',
+    'color.navy':               'ネイビー',
+    'color.brown':              '茶',
+    'color.gray':               'グレー',
+    'color.lightblue':          '水色',
+    'color.darkgreen':          '深緑',
+    'pattern.checker50':        '市松 50%',
+    'pattern.checker25':        '市松 25%',
+    'pattern.checker75':        '市松 75%',
+    'pattern.hstripes':         '横縞',
+    'pattern.vstripes':         '縦縞',
+    'pattern.hstripes_thin':    '横縞（細）',
+    'pattern.vstripes_thin':    '縦縞（細）',
+    'pattern.dots_sparse':      'ドット（粗）',
+    'pattern.dots_medium':      'ドット（中）',
+    'pattern.crosshatch':       'クロスハッチ',
+    'pattern.diagonal':         '斜線',
+    'pattern.diagonal_rev':     '斜線（逆）',
+    'project.title':            'プロジェクト',
+    'project.note':             'このページのすべての設定を .flpc プロジェクトファイルとして保存するか、読み込んで続きから再開できます。',
+    'project.save':             'プロジェクトを保存 (.flpc)',
+    'project.load':             'プロジェクトを読み込む (.flpc)',
+    'output.saveGif':           'アニメーションGIFを保存',
+    'output.gifDetected':       'アニメーションGIFを検出しました。現在の設定ですべてのフレームが変換されます。',
     'header.subtitle':        '写真やイラストをフリップノートスタジオ風に変換',
     'tab.convert':            '変換',
     'drop.main':              '画像をドラッグ＆ドロップ',
@@ -1431,6 +2140,40 @@ const TRANSLATIONS = {
     'placeholder.text':         '画像をアップロードして開始',
   },
   pt: {
+    'color.black':              'Preto',
+    'color.white':              'Branco',
+    'color.red':                'Vermelho',
+    'color.blue':               'Azul',
+    'color.green':              'Verde',
+    'color.yellow':             'Amarelo',
+    'color.purple':             'Roxo',
+    'color.orange':             'Laranja',
+    'color.pink':               'Rosa',
+    'color.teal':               'Verde-azulado',
+    'color.lime':               'Verde-limão',
+    'color.navy':               'Azul-marinho',
+    'color.brown':              'Marrom',
+    'color.gray':               'Cinza',
+    'color.lightblue':          'Azul claro',
+    'color.darkgreen':          'Verde escuro',
+    'pattern.checker50':        'Xadrez 50%',
+    'pattern.checker25':        'Xadrez 25%',
+    'pattern.checker75':        'Xadrez 75%',
+    'pattern.hstripes':         'Listras H',
+    'pattern.vstripes':         'Listras V',
+    'pattern.hstripes_thin':    'Listras H finas',
+    'pattern.vstripes_thin':    'Listras V finas',
+    'pattern.dots_sparse':      'Pontos esparsos',
+    'pattern.dots_medium':      'Pontos médios',
+    'pattern.crosshatch':       'Hachurado',
+    'pattern.diagonal':         'Diagonal',
+    'pattern.diagonal_rev':     'Diagonal invertida',
+    'project.title':            'Projeto',
+    'project.note':             'Salve todas as configurações desta página como um arquivo de projeto .flpc, ou carregue um de volta para continuar de onde parou.',
+    'project.save':             'Salvar Projeto (.flpc)',
+    'project.load':             'Carregar Projeto (.flpc)',
+    'output.saveGif':           'Salvar GIF Animado',
+    'output.gifDetected':       'GIF animado detectado — cada quadro será convertido com as configurações atuais.',
     'header.subtitle':        'Converta fotos e ilustrações no estilo Flipnote Studio',
     'tab.convert':            'Converter',
     'drop.main':              'Arraste e solte uma imagem',
@@ -1493,6 +2236,40 @@ const TRANSLATIONS = {
     'placeholder.text':         'Envie uma imagem para começar',
   },
   es: {
+    'color.black':              'Negro',
+    'color.white':              'Blanco',
+    'color.red':                'Rojo',
+    'color.blue':               'Azul',
+    'color.green':              'Verde',
+    'color.yellow':             'Amarillo',
+    'color.purple':             'Morado',
+    'color.orange':             'Naranja',
+    'color.pink':               'Rosa',
+    'color.teal':               'Verde azulado',
+    'color.lime':               'Lima',
+    'color.navy':               'Azul marino',
+    'color.brown':              'Marrón',
+    'color.gray':               'Gris',
+    'color.lightblue':          'Azul claro',
+    'color.darkgreen':          'Verde oscuro',
+    'pattern.checker50':        'Ajedrez 50%',
+    'pattern.checker25':        'Ajedrez 25%',
+    'pattern.checker75':        'Ajedrez 75%',
+    'pattern.hstripes':         'Rayas H',
+    'pattern.vstripes':         'Rayas V',
+    'pattern.hstripes_thin':    'Rayas H finas',
+    'pattern.vstripes_thin':    'Rayas V finas',
+    'pattern.dots_sparse':      'Puntos dispersos',
+    'pattern.dots_medium':      'Puntos medios',
+    'pattern.crosshatch':       'Entramado',
+    'pattern.diagonal':         'Diagonal',
+    'pattern.diagonal_rev':     'Diagonal invertida',
+    'project.title':            'Proyecto',
+    'project.note':             'Guarda todos los ajustes de esta página como un archivo de proyecto .flpc, o carga uno para continuar donde lo dejaste.',
+    'project.save':             'Guardar Proyecto (.flpc)',
+    'project.load':             'Cargar Proyecto (.flpc)',
+    'output.saveGif':           'Guardar GIF Animado',
+    'output.gifDetected':       'GIF animado detectado — cada fotograma se convertirá con los ajustes actuales.',
     'header.subtitle':        'Convierte fotos e ilustraciones al estilo Flipnote Studio',
     'tab.convert':            'Convertir',
     'drop.main':              'Arrastra y suelta una imagen',
@@ -1555,6 +2332,40 @@ const TRANSLATIONS = {
     'placeholder.text':         'Sube una imagen para comenzar',
   },
   zh: {
+    'color.black':              '黑',
+    'color.white':              '白',
+    'color.red':                '红',
+    'color.blue':               '蓝',
+    'color.green':              '绿',
+    'color.yellow':             '黄',
+    'color.purple':             '紫',
+    'color.orange':             '橙',
+    'color.pink':               '粉',
+    'color.teal':               '青绿',
+    'color.lime':               '青柠',
+    'color.navy':               '藏青',
+    'color.brown':              '棕',
+    'color.gray':               '灰',
+    'color.lightblue':          '浅蓝',
+    'color.darkgreen':          '深绿',
+    'pattern.checker50':        '棋盘 50%',
+    'pattern.checker25':        '棋盘 25%',
+    'pattern.checker75':        '棋盘 75%',
+    'pattern.hstripes':         '横条纹',
+    'pattern.vstripes':         '竖条纹',
+    'pattern.hstripes_thin':    '细横条纹',
+    'pattern.vstripes_thin':    '细竖条纹',
+    'pattern.dots_sparse':      '稀疏圆点',
+    'pattern.dots_medium':      '中等圆点',
+    'pattern.crosshatch':       '交叉阴影',
+    'pattern.diagonal':         '斜线',
+    'pattern.diagonal_rev':     '反向斜线',
+    'project.title':            '项目',
+    'project.note':             '将此页面上的所有设置保存为 .flpc 项目文件，或重新加载以从上次的位置继续。',
+    'project.save':             '保存项目 (.flpc)',
+    'project.load':             '加载项目 (.flpc)',
+    'output.saveGif':           '保存动图 GIF',
+    'output.gifDetected':       '检测到动图 GIF — 将使用当前设置转换每一帧。',
     'header.subtitle':        '将照片和插图转换为 Flipnote Studio 风格',
     'tab.convert':            '转换',
     'drop.main':              '拖放图像',
@@ -1617,6 +2428,40 @@ const TRANSLATIONS = {
     'placeholder.text':         '上传图像以开始',
   },
   zhtw: {
+    'color.black':              '黑',
+    'color.white':              '白',
+    'color.red':                '紅',
+    'color.blue':               '藍',
+    'color.green':              '綠',
+    'color.yellow':             '黃',
+    'color.purple':             '紫',
+    'color.orange':             '橙',
+    'color.pink':               '粉',
+    'color.teal':               '青綠',
+    'color.lime':               '萊姆綠',
+    'color.navy':               '藏青',
+    'color.brown':              '棕',
+    'color.gray':               '灰',
+    'color.lightblue':          '淺藍',
+    'color.darkgreen':          '深綠',
+    'pattern.checker50':        '棋盤 50%',
+    'pattern.checker25':        '棋盤 25%',
+    'pattern.checker75':        '棋盤 75%',
+    'pattern.hstripes':         '橫條紋',
+    'pattern.vstripes':         '直條紋',
+    'pattern.hstripes_thin':    '細橫條紋',
+    'pattern.vstripes_thin':    '細直條紋',
+    'pattern.dots_sparse':      '稀疏圓點',
+    'pattern.dots_medium':      '中等圓點',
+    'pattern.crosshatch':       '交叉影線',
+    'pattern.diagonal':         '斜線',
+    'pattern.diagonal_rev':     '反向斜線',
+    'project.title':            '專案',
+    'project.note':             '將此頁面上的所有設定儲存為 .flpc 專案檔案，或重新載入以從上次的位置繼續。',
+    'project.save':             '儲存專案 (.flpc)',
+    'project.load':             '載入專案 (.flpc)',
+    'output.saveGif':           '儲存動態 GIF',
+    'output.gifDetected':       '偵測到動態 GIF — 將以目前設定轉換每一影格。',
     'header.subtitle':        '將照片與插畫轉換成 Flipnote Studio 風格',
     'tab.convert':            '轉換',
     'drop.main':              '拖放圖片',
@@ -1679,6 +2524,40 @@ const TRANSLATIONS = {
     'placeholder.text':         '上傳圖片以開始',
   },
   fr: {
+    'color.black':              'Noir',
+    'color.white':              'Blanc',
+    'color.red':                'Rouge',
+    'color.blue':               'Bleu',
+    'color.green':              'Vert',
+    'color.yellow':             'Jaune',
+    'color.purple':             'Violet',
+    'color.orange':             'Orange',
+    'color.pink':               'Rose',
+    'color.teal':               'Sarcelle',
+    'color.lime':               'Citron vert',
+    'color.navy':               'Bleu marine',
+    'color.brown':              'Marron',
+    'color.gray':               'Gris',
+    'color.lightblue':          'Bleu clair',
+    'color.darkgreen':          'Vert foncé',
+    'pattern.checker50':        'Damier 50 %',
+    'pattern.checker25':        'Damier 25 %',
+    'pattern.checker75':        'Damier 75 %',
+    'pattern.hstripes':         'Rayures H',
+    'pattern.vstripes':         'Rayures V',
+    'pattern.hstripes_thin':    'Rayures H fines',
+    'pattern.vstripes_thin':    'Rayures V fines',
+    'pattern.dots_sparse':      'Points épars',
+    'pattern.dots_medium':      'Points moyens',
+    'pattern.crosshatch':       'Hachures croisées',
+    'pattern.diagonal':         'Diagonale',
+    'pattern.diagonal_rev':     'Diagonale inversée',
+    'project.title':            'Projet',
+    'project.note':             'Enregistrez tous les réglages de cette page dans un fichier de projet .flpc, ou rechargez-en un pour reprendre où vous en étiez.',
+    'project.save':             'Enregistrer le projet (.flpc)',
+    'project.load':             'Charger le projet (.flpc)',
+    'output.saveGif':           'Enregistrer le GIF animé',
+    'output.gifDetected':       'GIF animé détecté — chaque image sera convertie avec les réglages actuels.',
     'header.subtitle':        'Convertissez photos et illustrations au style Flipnote Studio',
     'tab.convert':            'Convertir',
     'drop.main':              'Glissez-déposez une image',
@@ -1741,6 +2620,40 @@ const TRANSLATIONS = {
     'placeholder.text':         'Téléversez une image pour commencer',
   },
   de: {
+    'color.black':              'Schwarz',
+    'color.white':              'Weiß',
+    'color.red':                'Rot',
+    'color.blue':               'Blau',
+    'color.green':              'Grün',
+    'color.yellow':             'Gelb',
+    'color.purple':             'Lila',
+    'color.orange':             'Orange',
+    'color.pink':               'Rosa',
+    'color.teal':               'Petrol',
+    'color.lime':               'Limette',
+    'color.navy':               'Marineblau',
+    'color.brown':              'Braun',
+    'color.gray':               'Grau',
+    'color.lightblue':          'Hellblau',
+    'color.darkgreen':          'Dunkelgrün',
+    'pattern.checker50':        'Schachbrett 50 %',
+    'pattern.checker25':        'Schachbrett 25 %',
+    'pattern.checker75':        'Schachbrett 75 %',
+    'pattern.hstripes':         'H-Streifen',
+    'pattern.vstripes':         'V-Streifen',
+    'pattern.hstripes_thin':    'H-Streifen dünn',
+    'pattern.vstripes_thin':    'V-Streifen dünn',
+    'pattern.dots_sparse':      'Punkte spärlich',
+    'pattern.dots_medium':      'Punkte mittel',
+    'pattern.crosshatch':       'Kreuzschraffur',
+    'pattern.diagonal':         'Diagonal',
+    'pattern.diagonal_rev':     'Diagonal umgekehrt',
+    'project.title':            'Projekt',
+    'project.note':             'Speichere alle Einstellungen dieser Seite als .flpc-Projektdatei oder lade eine, um dort weiterzumachen, wo du aufgehört hast.',
+    'project.save':             'Projekt speichern (.flpc)',
+    'project.load':             'Projekt laden (.flpc)',
+    'output.saveGif':           'Animiertes GIF speichern',
+    'output.gifDetected':       'Animiertes GIF erkannt — jedes Einzelbild wird mit den aktuellen Einstellungen konvertiert.',
     'header.subtitle':        'Fotos & Illustrationen in den Flipnote-Studio-Stil umwandeln',
     'tab.convert':            'Konvertieren',
     'drop.main':              'Bild hierher ziehen',
@@ -1803,6 +2716,40 @@ const TRANSLATIONS = {
     'placeholder.text':         'Bild hochladen, um zu beginnen',
   },
   vi: {
+    'color.black':              'Đen',
+    'color.white':              'Trắng',
+    'color.red':                'Đỏ',
+    'color.blue':               'Xanh dương',
+    'color.green':              'Xanh lá',
+    'color.yellow':             'Vàng',
+    'color.purple':             'Tím',
+    'color.orange':             'Cam',
+    'color.pink':               'Hồng',
+    'color.teal':               'Xanh mòng két',
+    'color.lime':               'Xanh chanh',
+    'color.navy':               'Xanh navy',
+    'color.brown':              'Nâu',
+    'color.gray':               'Xám',
+    'color.lightblue':          'Xanh nhạt',
+    'color.darkgreen':          'Xanh đậm',
+    'pattern.checker50':        'Ca-rô 50%',
+    'pattern.checker25':        'Ca-rô 25%',
+    'pattern.checker75':        'Ca-rô 75%',
+    'pattern.hstripes':         'Sọc ngang',
+    'pattern.vstripes':         'Sọc dọc',
+    'pattern.hstripes_thin':    'Sọc ngang mảnh',
+    'pattern.vstripes_thin':    'Sọc dọc mảnh',
+    'pattern.dots_sparse':      'Chấm thưa',
+    'pattern.dots_medium':      'Chấm vừa',
+    'pattern.crosshatch':       'Gạch chéo',
+    'pattern.diagonal':         'Chéo',
+    'pattern.diagonal_rev':     'Chéo ngược',
+    'project.title':            'Dự án',
+    'project.note':             'Lưu mọi thiết lập trên trang này thành tệp dự án .flpc, hoặc tải lại để tiếp tục từ nơi bạn đã dừng.',
+    'project.save':             'Lưu dự án (.flpc)',
+    'project.load':             'Tải dự án (.flpc)',
+    'output.saveGif':           'Lưu GIF động',
+    'output.gifDetected':       'Đã phát hiện GIF động — mỗi khung hình sẽ được chuyển đổi theo thiết lập hiện tại.',
     'header.subtitle':        'Chuyển ảnh & tranh minh họa sang phong cách Flipnote Studio',
     'tab.convert':            'Chuyển đổi',
     'drop.main':              'Kéo & thả một ảnh',
